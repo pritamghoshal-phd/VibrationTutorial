@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free undamped vibration · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html" class="active">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="free">
+<h2><span class="num">2</span>Free undamped vibration</h2>
+<p>With no damping and no force, the equation is $m\ddot x + kx = 0$, or $\ddot x + \omega_n^2 x = 0$. Trying $x=e^{st}$ gives the characteristic equation $s^2+\omega_n^2=0$, so $s=\pm i\omega_n$, and the general solution is a pure sinusoid:</p>
+$$ x(t) = A\cos\omega_n t + B\sin\omega_n t = X\cos(\omega_n t - \phi) $$
+<p>The constants come from the initial conditions $x(0)=x_0$, $\dot x(0)=v_0$:</p>
+$$ A = x_0,\qquad B=\frac{v_0}{\omega_n},\qquad X=\sqrt{x_0^2+\left(\frac{v_0}{\omega_n}\right)^2},\qquad \tan\phi=\frac{v_0}{\omega_n x_0} $$
+<p><strong>Why a cosine?</strong> Picture a vector of length $X$ spinning at $\omega_n$. Its vertical shadow is the motion. The initial conditions set where the vector starts: $x_0$ is its vertical part and $v_0/\omega_n$ its horizontal part, so its length is $X=\sqrt{x_0^2+(v_0/\omega_n)^2}$ and its starting angle is $\phi$.</p>
+<div class="demo concept" id="c-phasor">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Circles make sines</div>
+  <canvas id="c-phasor-anim" class="anim" style="height:270px"></canvas>
+  <div class="controls" id="c-phasor-ctl"></div>
+  
+  
+  <div class="bar" id="c-phasor-btn"></div>
+  <div class="stats" id="c-phasor-stats"></div>
+  <p class="small concept-note">Change v₀: the vector starts tilted, which is exactly the phase angle φ. Change ωₙ: it spins faster, but the circle (amplitude) stays the same.</p>
+</div>
+<p>The motion repeats with natural frequency $f_n=\omega_n/2\pi$ (Hz) and period $\tau_n=1/f_n=2\pi/\omega_n$. Energy sloshes between the spring ($V=\tfrac12 kx^2$) and the mass ($T=\tfrac12 m\dot x^2$) with the total constant.</p>
+
+<p>Since $\omega_n=\sqrt{k/m}$, quadrupling the mass halves the frequency, and quadrupling the stiffness doubles it. Race three oscillators released together:</p>
+<div class="demo concept" id="c-race">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Oscillator race: m, 4m and 4k</div>
+  <canvas id="c-race-anim" class="anim" style="height:270px"></canvas>
+  <div class="controls" id="c-race-ctl"></div>
+  
+  
+  <div class="bar" id="c-race-btn"></div>
+  <div class="stats" id="c-race-stats"></div>
+  <p class="small concept-note">Count the cycles: the stiff one completes two for every one of the baseline, and the heavy one only half.</p>
+</div>
+<div class="demo" id="demo-free">
+  <div class="demo-title"><span class="tag">Interactive</span>Spring–mass oscillator</div>
+  <canvas id="free-anim" class="anim"></canvas>
+  <div class="controls" id="free-ctl"></div>
+  <div class="bar" id="free-btn"></div>
+  <div class="stats" id="free-stats"></div>
+  <div class="notes" id="free-notes"></div>
+  <div class="grid21">
+    <div>
+      <canvas id="free-plot" class="plot"></canvas>
+      <div class="energy">
+        <span>Kinetic $T$</span><div class="ebar"><div id="free-ke" style="background:var(--c2)"></div></div><span id="free-ke-v">0</span>
+        <span>Potential $V$</span><div class="ebar"><div id="free-pe" style="background:var(--c1)"></div></div><span id="free-pe-v">0</span>
+        <span>Total</span><div class="ebar"><div id="free-te" style="background:var(--c3)"></div></div><span id="free-te-v">0</span>
+      </div>
+    </div>
+    <div>
+      <canvas id="free-phase" class="plot square"></canvas>
+      <p class="small" style="margin:.3rem 0 0">Phase portrait: $\dot x/\omega_n$ vs $x$. Undamped motion traces a circle of radius $X$.</p>
+    </div>
+  </div>
+</div>
+<div class="try"><h4>Try this</h4><ul>
+  <li>Quadruple the mass. What happens to $f_n$? Now quadruple $k$ as well.</li>
+  <li>Change only $x_0$. The amplitude changes but the period does not. That is a hallmark of a <em>linear</em> system.</li>
+  <li>Set $x_0=0$ and give only $v_0$. Where does the phase angle $\phi$ end up?</li>
+  <li>Watch the energy bars: when is $T$ maximal? When is $V$ maximal?</li>
+</ul></div>
+<div class="wild"><span class="wi" aria-hidden="true">⌚</span><div><b class="wh">Vibrations in the wild</b><p>The heartbeat of a quartz watch is a tiny tuning fork cut from quartz crystal, vibrating at 32,768 Hz. That is 2<sup>15</sup>, so a chain of 15 divide-by-two circuits turns it into exactly one tick per second. Its frequency is set by the same √(k/m) you just played with.</p></div></div>
+</section>
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="eom.html"><small>← Previous</small>Equations of motion</a><a class="next" href="damped.html"><small>Next →</small>Damped free vibration</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/demos.js"></script>
+<script src="assets/concepts.js"></script>
+</body>
+</html>

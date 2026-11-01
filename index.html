@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="index.html" class="active">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+<header class="hero">
+  <div class="wrap">
+    <h1>Linear Vibrations Lab</h1>
+    <p>An interactive companion for the vibrations unit of undergraduate dynamics. Read a little, then play with the simulations: every slider changes a real model, and every plot is computed live from the equations you are learning.</p>
+    <p class="small" style="margin-top:.8rem">Every parameter has a slider and a box. Type any number into the box (press Enter or click away) to go beyond the slider range, or to try unusual values such as zero, negative damping or negative stiffness. The page explains what happens physically.</p>
+  </div>
+</header>
+<main class="wrap">
+<h2>Contents</h2>
+<div class="cards">
+<a class="cardlink" href="eom.html"><span class="k">Chapter 1</span><h3>Equations of motion</h3><p>Free-body diagrams, standard form, ωₙ and ζ, and when linearization works (pendulum demo).</p></a>
+<a class="cardlink" href="free.html"><span class="k">Chapter 2</span><h3>Free undamped vibration</h3><p>Initial conditions, amplitude and phase, phase portraits, and energy exchange.</p></a>
+<a class="cardlink" href="damped.html"><span class="k">Chapter 3</span><h3>Damped free vibration</h3><p>Under-, critically and overdamped motion, and measuring ζ with the log decrement.</p></a>
+<a class="cardlink" href="forced.html"><span class="k">Chapter 4</span><h3>Forced harmonic vibration</h3><p>Transient vs. steady state, resonance, beats, magnification and phase.</p></a>
+<a class="cardlink" href="base.html"><span class="k">Chapter 5</span><h3>Base excitation</h3><p>Moving supports, transmissibility and vibration isolation.</p></a>
+<a class="cardlink" href="summary.html"><span class="k">Chapter 6</span><h3>Summary & concept checks</h3><p>A formula sheet and 21 questions with hidden answers.</p></a>
+<a class="cardlink" href="examples.html"><span class="k">Practice</span><h3>Worked examples</h3><p>8 problems with animations of each system and step-by-step solutions.</p></a>
+</div>
+<div class="card" id="badges">
+<h3 style="margin-top:.2rem">🏅 Your badges</h3>
+<div id="badge-shelf"></div>
+</div>
+<div class="card">
+<h3 style="margin-top:.2rem">How to use this site</h3>
+<p>Each chapter has a short explanation followed by live simulations. Drag a slider, or type any value into the box beside it, including values beyond the slider range, zero, or negative numbers. The page explains what happens physically when you try something unusual.</p>
+<p style="margin-bottom:0">Every simulation has <b>Pause</b>, <b>Restart</b>, <b>Default values</b> and a speed menu.</p>
+</div>
+<nav class="pager" aria-label="Page navigation"><a class="next" href="eom.html"><small>Next →</small>Equations of motion</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+
+</body>
+</html>

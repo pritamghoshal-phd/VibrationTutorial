@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 4: Impact: a block sticks to a damped carriage · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="index.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html" class="active">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<nav class="sub" aria-label="Examples"><a href="example-1.html">Example 1</a><a href="example-2.html">Example 2</a><a href="example-3.html">Example 3</a><a href="example-4.html" class="active">Example 4</a><a href="example-5.html">Example 5</a><a href="example-6.html">Example 6</a><a href="example-7.html">Example 7</a><a href="example-8.html">Example 8</a></nav>
+<p class="crumbs"><a href="examples.html">Worked examples</a> › Example 4</p>
+<h2><span class="num">Example 4</span>Impact: a block sticks to a damped carriage</h2>
+<div class="tags"><span>impact</span><span>damped free vibration</span><span>initial conditions</span></div>
+<div class="card problem"><h3>Problem</h3>
+<p>Block A (mass $2m$) strikes the stationary block B (mass $m$) with speed $v$ and sticks to it. B is attached to the wall by a spring $k$ and a damper $c$. All surfaces are smooth. $x$ is measured to the left from B's rest position.</p>
+<p>Use $v=30$ m/s, $k=3000$ N/m, $c=30$ N·s/m, $m=10$ kg.</p>
+<p><b>Find:</b> the time history $x(t)$ after A sticks to B.</p>
+</div>
+
+<div class="demo" id="ex4">
+  <div class="demo-title"><span class="tag">Interactive</span>The system in motion</div>
+  <canvas id="ex4-anim" class="anim" style="height:330px"></canvas>
+  <p class="small" style="margin:.3rem 0 0">Displacements in the drawing are scaled up so the motion is visible; the plot shows the true values.</p>
+  <div class="controls" id="ex4-ctl"></div>
+  
+  
+  <div class="bar" id="ex4-btn"></div>
+  <div class="stats" id="ex4-stats"></div>
+  <div class="notes" id="ex4-notes"></div>
+  <canvas id="ex4-plot" class="plot short"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>x(t)</span><span><span class="sw" style="background:var(--c2)"></span>Decay envelope</span></div>
+</div>
+
+<h3>Solution</h3>
+<p class="small">Every solution follows the same five steps: coordinates, free-body diagrams, kinetics, kinematics, solve. Try the problem first, then open one step at a time to check your work.</p>
+<details class="step"><summary>Step 1 · Choose a coordinate system</summary>
+<p>Let $x$ be the position of B (and later of A + B), positive to the <b>left</b>, measured from B's rest position where the spring is unstretched. Take $t=0$ at the instant of impact.</p>
+</details>
+<details class="step"><summary>Step 2 · Draw the free-body diagrams</summary>
+<figure class="fbdfig"><svg class="fbd" viewBox="0 0 580 220" role="img" aria-label="Left: the equal and opposite contact impulse between A and B. Right: the combined body after impact, with x positive to the left."><defs><marker id="ah-e4-varc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c1)"/></marker><marker id="ah-e4-varc2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c2)"/></marker><marker id="ah-e4-varc4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c4)"/></marker><marker id="ah-e4-varmuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><text x="140" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">During impact (very short)</text><rect x="67.0" y="85.0" width="56" height="50" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="95" y="115" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">B</text><rect x="160.0" y="85.0" width="50" height="50" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="185" y="115" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">A</text><line x1="160" y1="100" x2="128" y2="100" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e4-varc2)"/><text x="140" y="92" font-size="14" fill="var(--c2)" text-anchor="middle" font-weight="400" font-style="italic">F̂</text><line x1="118" y1="120" x2="152" y2="120" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e4-varc2)"/><text x="140" y="142" font-size="14" fill="var(--c2)" text-anchor="middle" font-weight="400" font-style="italic">F̂</text><text x="140" y="185" font-size="11" fill="var(--muted)" text-anchor="middle" font-weight="400">spring and damper forces are finite:</text><text x="140" y="200" font-size="11" fill="var(--muted)" text-anchor="middle" font-weight="400">no impulse during the impact</text><text x="430" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">After impact (A stuck to B)</text><rect x="385.0" y="84.0" width="90" height="52" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="430" y="115" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">3m</text><line x1="475" y1="100" x2="545" y2="100" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e4-varc1)"/><text x="552" y="104" font-size="14" fill="var(--c1)" text-anchor="start" font-weight="400" font-style="italic">kx</text><line x1="475" y1="122" x2="545" y2="122" stroke="var(--c4)" stroke-width="2.4" marker-end="url(#ah-e4-varc4)"/><text x="552" y="127" font-size="14" fill="var(--c4)" text-anchor="start" font-weight="400" font-style="italic">cẋ</text><line x1="430" y1="136" x2="430" y2="195" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e4-varc2)"/><text x="440" y="195" font-size="14" fill="var(--c2)" text-anchor="start" font-weight="400" font-style="italic">3mg</text><line x1="400" y1="84" x2="400" y2="40" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e4-varmuted)"/><text x="410" y="45" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">N</text><line x1="390" y1="60" x2="340" y2="60" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e4-varmuted)"/><text x="330" y="64" font-size="14" fill="var(--muted)" text-anchor="end" font-weight="400" font-style="italic">+x</text></svg><figcaption>Left: the equal and opposite contact impulse between A and B. Right: the combined body after impact, with x positive to the left.</figcaption></figure>
+</details>
+<details class="step"><summary>Step 3 · Kinetics (Newton–Euler equations)</summary>
+<p><b>During impact</b> (A and B together): only the internal contact impulse acts, so linear momentum is conserved:</p>
+$$2m\,v+m(0)=(2m+m)\,V_0$$
+<p><b>After impact</b> (combined body, mass $3m$):</p>
+$$3m\ddot x=-kx-c\dot x$$
+</details>
+<details class="step"><summary>Step 4 · Kinematics (constraints)</summary>
+<p>A sticks to B, so afterward they share one coordinate: $x_A=x_B=x$. The impact is instantaneous, so B has not moved yet:</p>
+$$x(0)=0,\qquad \dot x(0)=V_0=\tfrac23v=20\ \text{m/s}$$
+</details>
+<details class="step"><summary>Step 5 · Solve</summary>
+<p>$3m\ddot x+c\dot x+kx=0$ with $\omega_n=\sqrt{k/3m}=\sqrt{3000/30}=10$ rad/s and $\zeta=\dfrac{c}{2\sqrt{k(3m)}}=\dfrac{30}{600}=0.05$.</p>
+<p>Underdamped: $\omega_d=\omega_n\sqrt{1-\zeta^2}=9.987$ rad/s and $x=e^{-\zeta\omega_nt}(A\cos\omega_dt+B\sin\omega_dt)$.</p>
+<p>$x(0)=0\Rightarrow A=0$. $\;\dot x(0)=B\omega_d=V_0\Rightarrow B=20/9.987=2.003$ m.</p>
+$$x(t)=2.00\,e^{-0.5t}\sin(9.99\,t)\ \text{m}$$
+<p class="small">One third of the kinetic energy is lost in the sticking collision.</p>
+</details>
+<details class="answer"><summary>Answer</summary>
+<p>$$x(t)=2.00\,e^{-0.5t}\sin(9.99\,t)\ \text{m}$$</p>
+</details>
+
+<div class="try"><h4>Explore</h4><ul><li>Set c = 0. Is the motion still decaying? What happens to ζ?</li><li>Find the c that makes the carriage return without oscillating (critical damping). Hint: c_cr = 2√(k·3m).</li><li>How does the first peak change if A has mass m instead of 2m? (Change the momentum step in your head, then check the trend with v.)</li></ul></div>
+
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="example-3.html"><small>← Previous</small>Example 3</a><a class="next" href="example-5.html"><small>Next →</small>Example 5</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/examples.js"></script>
+</body>
+</html>
