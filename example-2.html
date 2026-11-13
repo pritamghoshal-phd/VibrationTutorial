@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 2: Pulley system with a hanging spring · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html" class="active">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<nav class="sub" aria-label="Examples"><a href="example-1.html">Example 1</a><a href="example-2.html" class="active">Example 2</a><a href="example-3.html">Example 3</a><a href="example-4.html">Example 4</a><a href="example-5.html">Example 5</a><a href="example-6.html">Example 6</a><a href="example-7.html">Example 7</a><a href="example-8.html">Example 8</a></nav>
+<p class="crumbs"><a href="examples.html">Worked examples</a> › Example 2</p>
+<h2><span class="num">Example 2</span>Pulley system with a hanging spring</h2>
+<div class="tags"><span>EOM</span><span>pulleys</span><span>static equilibrium</span></div>
+<div class="card problem"><h3>Problem</h3>
+<p>Blocks A and B, of masses $m$ and $3m$, are connected by a cable–pulley system. A spring of stiffness $3k$ connects A to the wall, and a spring of stiffness $k$ connects B to the ground. $x$ is the position of A, with both springs unstretched at $x=0$. The horizontal surface is smooth.</p>
+<p><b>Find:</b> (a) the equation of motion in terms of $x$; (b) the natural frequency.</p>
+</div>
+
+<div class="demo" id="ex2">
+  <div class="demo-title"><span class="tag">Interactive</span>The system in motion</div>
+  <canvas id="ex2-anim" class="anim" style="height:370px"></canvas>
+  <p class="small" style="margin:.3rem 0 0">Displacements in the drawing are scaled up so the motion is visible; the plot shows the true values.</p>
+  <div class="controls" id="ex2-ctl"></div>
+  
+  
+  <div class="bar" id="ex2-btn"></div>
+  <div class="stats" id="ex2-stats"></div>
+  <div class="notes" id="ex2-notes"></div>
+  <canvas id="ex2-plot" class="plot short"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>x(t)</span><span><span class="sw" style="background:var(--c3)"></span>Static equilibrium x_st</span></div>
+</div>
+
+<h3>Solution</h3>
+<p class="small">Every solution follows the same five steps: coordinates, free-body diagrams, kinetics, kinematics, solve. Try the problem first, then open one step at a time to check your work.</p>
+<details class="step"><summary>Step 1 · Choose a coordinate system</summary>
+<p>Let $x$ be A's position, positive to the right (toward the pulley), with both springs unstretched at $x=0$. Let $x_B$ be B's displacement, positive <b>downward</b>.</p>
+</details>
+<details class="step"><summary>Step 2 · Draw the free-body diagrams</summary>
+<figure class="fbdfig"><svg class="fbd" viewBox="0 0 560 240" role="img" aria-label="Free-body diagrams of A and of B. The lower spring is compressed by xB, so it pushes B upward."><defs><marker id="ah-e2-varc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c1)"/></marker><marker id="ah-e2-varc2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c2)"/></marker><marker id="ah-e2-varc3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c3)"/></marker><marker id="ah-e2-varmuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><text x="140" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">Block A</text><rect x="105.0" y="92.0" width="70" height="46" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="140" y="120" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">A</text><line x1="175" y1="115" x2="245" y2="115" stroke="var(--c3)" stroke-width="2.4" marker-end="url(#ah-e2-varc3)"/><text x="252" y="120" font-size="14" fill="var(--c3)" text-anchor="start" font-weight="400" font-style="italic">T</text><line x1="105" y1="115" x2="35" y2="115" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e2-varc1)"/><text x="30" y="106" font-size="14" fill="var(--c1)" text-anchor="end" font-weight="400" font-style="italic">3kx</text><line x1="140" y1="138" x2="140" y2="195" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e2-varc2)"/><text x="150" y="195" font-size="14" fill="var(--c2)" text-anchor="start" font-weight="400" font-style="italic">mg</text><line x1="140" y1="92" x2="140" y2="40" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e2-varmuted)"/><text x="150" y="46" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">N</text><text x="430" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">Block B + light pulley</text><rect x="395.0" y="93.0" width="70" height="54" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="430" y="125" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">3m</text><line x1="414" y1="93" x2="414" y2="40" stroke="var(--c3)" stroke-width="2.4" marker-end="url(#ah-e2-varc3)"/><text x="404" y="44" font-size="14" fill="var(--c3)" text-anchor="end" font-weight="400" font-style="italic">T</text><line x1="446" y1="93" x2="446" y2="40" stroke="var(--c3)" stroke-width="2.4" marker-end="url(#ah-e2-varc3)"/><text x="456" y="44" font-size="14" fill="var(--c3)" text-anchor="start" font-weight="400" font-style="italic">T</text><line x1="414" y1="147" x2="414" y2="210" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e2-varc2)"/><text x="404" y="212" font-size="14" fill="var(--c2)" text-anchor="end" font-weight="400" font-style="italic">3mg</text><line x1="452" y1="215" x2="452" y2="150" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e2-varc1)"/><text x="462" y="205" font-size="14" fill="var(--c1)" text-anchor="start" font-weight="400" font-style="italic">k x<tspan baseline-shift="sub" font-size="75%">B</tspan></text></svg><figcaption>Free-body diagrams of A and of B. The lower spring is compressed by x<sub>B</sub>, so it pushes B upward.</figcaption></figure>
+</details>
+<details class="step"><summary>Step 3 · Kinetics (Newton–Euler equations)</summary>
+<p><b>Block A</b> (horizontal): $\;m\ddot x=T-3kx$</p>
+<p><b>Block B</b> (down +): $\;3m\ddot x_B=3mg-2T-kx_B$</p>
+</details>
+<details class="step"><summary>Step 4 · Kinematics (constraints)</summary>
+<p>Cable length is constant and B hangs on two strands, so</p>
+$$x_B=\tfrac12x\qquad\Longrightarrow\qquad \ddot x_B=\tfrac12\ddot x$$
+</details>
+<details class="step"><summary>Step 5 · Solve</summary>
+<p>From B: $T=\tfrac12\left(3mg-\tfrac k2x-\tfrac32m\ddot x\right)$. Substitute into A:</p>
+$$\tfrac74m\ddot x+\tfrac{13}4kx=\tfrac32mg\qquad\Longleftrightarrow\qquad 7m\ddot x+13kx=6mg$$
+$$\omega_n=\sqrt{\frac{13k}{7m}},\qquad x_{st}=\frac{6mg}{13k}$$
+<p class="small">Because $x$ is measured from the unstretched position, gravity stays as a constant force; the motion is a vibration about $x_{st}$.</p>
+</details>
+<details class="answer"><summary>Answer</summary>
+<p>(a) $\displaystyle 7m\ddot x+13kx=6mg$ &nbsp; (equivalently $\tfrac74m\ddot x+\tfrac{13}4kx=\tfrac32mg$)</p>
+<p>(b) $\displaystyle \omega_n=\sqrt{\frac{13k}{7m}}$</p>
+</details>
+
+<div class="try"><h4>Explore</h4><ul><li>Release from x₀ = 0 (springs unstretched). The block swings between 0 and 2x_st: why exactly twice?</li><li>Set x₀ = x_st (read it from the stats). What happens, and why?</li><li>Which matters more for ωₙ, the 3k spring or the k spring? Compare their contributions to k_eq.</li></ul></div>
+
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="example-1.html"><small>← Previous</small>Example 1</a><a class="next" href="example-3.html"><small>Next →</small>Example 3</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/examples.js"></script>
+</body>
+</html>

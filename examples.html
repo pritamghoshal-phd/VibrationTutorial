@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worked examples · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html" class="active">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<h2>Worked examples</h2>
+<p>Each example has the problem statement, an animation of that exact system that you can tune, and a step-by-step solution. Try each problem on paper first, then open one solution step at a time.</p>
+<div class="card method"><h3 style="margin-top:.2rem">The five-step method</h3>
+<ol><li><b>Choose a coordinate system:</b> define each coordinate, its positive direction and where it is measured from.</li>
+<li><b>Draw the free-body diagrams</b> of every body, in a displaced position.</li>
+<li><b>Kinetics:</b> write Newton–Euler equations ($\sum F=m\ddot x$, $\sum M_O=I_O\ddot\theta$) for each body.</li>
+<li><b>Kinematics:</b> relate the coordinates through constraints (cables, rolling, links).</li>
+<li><b>Solve:</b> eliminate the unknowns to reach one equation of motion, then answer the question.</li></ol></div>
+<div class="cards cards-4">
+<a class="cardlink" href="example-1.html"><span class="k">Example 1</span><h3>Block on an incline driving a pulley</h3><p>A spring-restrained block on a smooth incline is tied by a cable to a pulley carrying a hanging block.</p><div class="tags"><span>EOM</span><span>pulleys</span><span>natural frequency</span></div></a>
+<a class="cardlink" href="example-2.html"><span class="k">Example 2</span><h3>Pulley system with a hanging spring</h3><p>Block A on a smooth table pulls a pulley-hung block B (3m) that also sits on a spring.</p><div class="tags"><span>EOM</span><span>pulleys</span><span>static equilibrium</span></div></a>
+<a class="cardlink" href="example-3.html"><span class="k">Example 3</span><h3>Two carts linked by a pivoting bar</h3><p>A massless bar pinned at its base links two spring-restrained carts at different heights.</p><div class="tags"><span>EOM</span><span>small angles</span><span>massless links</span></div></a>
+<a class="cardlink" href="example-4.html"><span class="k">Example 4</span><h3>Impact: a block sticks to a damped carriage</h3><p>Block A (2m) hits a spring–damper-mounted carriage B (m) at 30 m/s and sticks.</p><div class="tags"><span>impact</span><span>damped free vibration</span><span>initial conditions</span></div></a>
+<a class="cardlink" href="example-5.html"><span class="k">Example 5</span><h3>Critical damping of a pinned bar</h3><p>A homogeneous bar pinned at O, restrained by a spring at a and a damper at b, in a horizontal plane.</p><div class="tags"><span>rotational EOM</span><span>critical damping</span></div></a>
+<a class="cardlink" href="example-6.html"><span class="k">Example 6</span><h3>Rolling disk driven through a spring</h3><p>A disk that rolls without slipping, tied to a wall by k and to a moving base by 4k.</p><div class="tags"><span>rolling</span><span>forced vibration</span><span>phase</span></div></a>
+<a class="cardlink" href="example-7.html"><span class="k">Example 7</span><h3>Keeping a base-driven mass below a limit</h3><p>A mass between a moving base and a wall. Which frequencies keep its amplitude under 1.5y₀?</p><div class="tags"><span>base excitation</span><span>frequency response</span><span>design</span></div></a>
+<a class="cardlink" href="example-8.html"><span class="k">Example 8</span><h3>Pulley system driven by a moving support</h3><p>A moving support drives a mass through a spring, a cable and two pulleys; a second spring holds the mass from below.</p><div class="tags"><span>pulleys</span><span>base excitation</span><span>resonance</span></div></a>
+</div>
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="summary.html"><small>← Previous</small>Summary and concept checks</a><a class="next" href="example-1.html"><small>Next →</small>Example 1</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+
+</body>
+</html>

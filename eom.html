@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equations of motion · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html" class="active">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="eom">
+<h2><span class="num">1</span>Equations of motion</h2>
+<p>Almost every vibration problem in this course reduces to one equation. The canonical model is a mass $m$ attached to a spring of stiffness $k$ and a viscous damper with coefficient $c$, driven by an external force $F(t)$. We describe its position with one coordinate $x(t)$, measured from the <em>static equilibrium</em> position. One coordinate means one <strong>degree of freedom</strong> (1-DOF).</p>
+
+<svg class="fbd" viewBox="0 0 520 190" role="img" aria-label="Free body diagram of mass with spring force kx and damper force c x-dot acting to the left and applied force F(t) acting to the right">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <rect x="200" y="60" width="120" height="80" rx="8" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/>
+  <text x="260" y="107" text-anchor="middle" font-size="22" font-style="italic" fill="currentColor">m</text>
+  <line x1="200" y1="82" x2="85" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="80" y="76" text-anchor="end" font-size="16" fill="currentColor"><tspan font-style="italic">kx</tspan></text>
+  <line x1="200" y1="118" x2="85" y2="118" stroke="currentColor" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="80" y="124" text-anchor="end" font-size="16" fill="currentColor"><tspan font-style="italic">c ẋ</tspan></text>
+  <line x1="320" y1="100" x2="440" y2="100" stroke="var(--c2)" stroke-width="2.5" marker-end="url(#ah)" style="color:var(--c2)"/>
+  <text x="446" y="105" font-size="16" fill="var(--c2)"><tspan font-style="italic">F(t)</tspan></text>
+  <line x1="230" y1="35" x2="300" y2="35" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ah)" style="color:var(--muted)"/>
+  <text x="308" y="40" font-size="15" fill="var(--muted)" font-style="italic">x, ẋ, ẍ (+)</text>
+  <text x="260" y="175" text-anchor="middle" font-size="13" fill="var(--muted)">Free-body diagram with the mass displaced and moving in +x</text>
+</svg>
+
+<p>Displace the mass by a positive $x$ and give it a positive velocity $\dot x$. The spring pulls back with $kx$, the damper resists with $c\dot x$, and $F(t)$ pushes. Newton's second law, $\sum F = m\ddot x$, gives</p>
+$$ F(t) - kx - c\dot x = m\ddot x \quad\Longrightarrow\quad \boxed{\,m\ddot x + c\dot x + kx = F(t)\,} $$
+<p>Dividing by $m$ puts it in <strong>standard form</strong>, which introduces the two numbers that control everything that follows:</p>
+$$ \ddot x + 2\zeta\omega_n \dot x + \omega_n^2 x = \frac{F(t)}{m}, \qquad \omega_n=\sqrt{\frac{k}{m}}, \qquad \zeta = \frac{c}{2\sqrt{km}} = \frac{c}{c_{cr}} $$
+<p>$\omega_n$ is the <strong>natural frequency</strong> (rad/s) and $\zeta$ is the <strong>damping ratio</strong> (dimensionless). For any 1-DOF system, however complicated it looks, your job is to reach this form and read off $m_{eq}$, $c_{eq}$, $k_{eq}$.</p>
+
+<h3>The building blocks</h3>
+<p>Every system in this chapter is assembled from four kinds of parts: <strong>inertia</strong> (particles and rigid bodies, which resist acceleration), <strong>springs</strong> (force proportional to how much they are deformed), <strong>dashpots</strong> (force proportional to how fast they are deformed) and <strong>external forcing</strong>. The kinetics tools are the ones you already know: $\sum\vec F=m\vec a_G$ and $\sum\vec M_A=I_A\vec\alpha$, with A either the center of mass or a fixed point of the body.</p>
+
+<h3>Getting spring and dashpot directions right</h3>
+<p>As a system vibrates, each spring alternates between stretched and compressed, and each dashpot between lengthening and shortening, so their forces keep flipping direction. A free-body diagram, however, is drawn once and has to be valid at every instant. The trick is to draw it for one convenient instant and let the algebra handle the rest:</p>
+<ol>
+  <li><strong>Assume every coordinate and every velocity is positive</strong> ($x&gt;0$, $\dot x&gt;0$, and so on).</li>
+  <li>From the geometry, decide whether each spring is <strong>stretched or compressed</strong> and whether each dashpot is <strong>lengthening or shortening</strong> in that state.</li>
+  <li>Draw each force the way it acts in that state: a stretched spring or lengthening dashpot <em>pulls</em> on the body; a compressed spring or shortening dashpot <em>pushes</em>. Label it $k\Delta$ or $c\dot\Delta$, where $\Delta$ is the deformation written in terms of the coordinates (for example $\Delta=x$, or $x-x_B$ for a spring whose other end moves).</li>
+  <li><strong>Do not redraw</strong> for other instants. When $x$ or $\dot x$ becomes negative, the label $kx$ or $c\dot x$ becomes negative, which reverses the force automatically.</li>
+</ol>
+<div class="demo concept" id="c-signs">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Which way do spring and dashpot forces point?</div>
+  <canvas id="c-signs-anim" class="anim" style="height:300px"></canvas>
+  
+  
+  
+  <div class="bar" id="c-signs-btn"></div>
+  <div class="stats" id="c-signs-stats"></div>
+  <p class="small concept-note">Left: the real forces, which flip as the mass moves. Right: the single FBD drawn for x &gt; 0 and ẋ &gt; 0. Whenever the real force points right, the label on the left-pointing arrow has gone negative, so the FBD is still correct.</p>
+</div>
+
+<p>Watch it happen: as the mass vibrates, the spring and damper forces change from instant to instant, but they always add up to exactly $m\ddot x$.</p>
+<div class="demo concept" id="c-fbd">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Newton’s law, live</div>
+  <canvas id="c-fbd-anim" class="anim" style="height:260px"></canvas>
+  <div class="controls" id="c-fbd-ctl"></div>
+  
+  
+  <div class="bar" id="c-fbd-btn"></div>
+  <div class="stats" id="c-fbd-stats"></div>
+  <p class="small concept-note">Notice: when the mass passes through x = 0 the spring force is zero and only the damper acts; at the ends of the swing the velocity is zero and only the spring acts.</p>
+</div>
+<div class="card recipe">
+<h3 style="margin-top:.2rem">Recipe: deriving the equation of motion (five steps)</h3>
+<p style="margin-top:0">A system may need several coordinates to describe each body, but every system in this chapter has a single degree of freedom: constraints tie the coordinates together, and the goal is one equation of the form $M\ddot x+C\dot x+Kx=f(t)$.</p>
+<ol>
+  <li><strong>Choose a coordinate system:</strong> name each coordinate, its positive direction, and where it is measured from (static equilibrium is usually best).</li>
+  <li><strong>Draw the free-body diagrams</strong> of every body, with all coordinates and velocities positive, using the spring and dashpot rule above.</li>
+  <li><strong>Kinetics:</strong> apply Newton–Euler to each body: $\sum F = m\ddot x$, $\sum M_O = I_O\ddot\theta$.</li>
+  <li><strong>Kinematics:</strong> relate the coordinates (cables, rolling without slip, links) and linearize for small motion: $\sin\theta\approx\theta$, $\cos\theta\approx 1$.</li>
+  <li><strong>Solve:</strong> eliminate the unknown internal forces to reach one equation, put it in standard form, and read off $\omega_n$ and $\zeta$.</li>
+</ol>
+<p class="small" style="margin-bottom:0">Alternative for conservative systems: the <strong>energy method</strong>. Write $T+V=\text{const}$ and differentiate: $\frac{d}{dt}(T+V)=0$. With $T=\tfrac12 m_{eq}\dot x^2$ and $V=\tfrac12 k_{eq}x^2$ this gives $m_{eq}\ddot x + k_{eq}x = 0$ directly.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:.2rem">Sign check: M, C and K must agree</h3>
+<p>In a correctly derived equation $M\ddot x+C\dot x+Kx=f(t)$, the three coefficients all have the <strong>same sign</strong> (all positive, or all negative if you multiplied through by −1). The reason is the solution itself: $\omega_n=\sqrt{K/M}$ and $\zeta=C/2\sqrt{KM}$.</p>
+<ul>
+  <li>If $K$ and $M$ had opposite signs, $\omega_n$ would be imaginary and the motion would grow exponentially without oscillating.</li>
+  <li>If $C$ and $M$ had opposite signs, $\zeta$ would be negative and the oscillations would grow instead of decay.</li>
+</ul>
+<p style="margin-bottom:0">A passive system of masses, springs and dashpots can do neither. So a sign mismatch means a mistake, usually a force direction on an FBD or a sign in the kinematics. Go back and find it rather than flipping a sign to make it look right. (You can see what the wrong signs would do by typing a negative stiffness or damping into the simulations.)</p>
+</div>
+
+<h3>Why gravity disappears</h3>
+<p>For a mass hanging on a vertical spring, gravity stretches the spring by $\delta_{st}$ with $k\delta_{st}=mg$. If $x$ is measured from that equilibrium, the spring force is $k(\delta_{st}+x)$ and the $mg$ and $k\delta_{st}$ terms cancel exactly. Gravity shifts <em>where</em> the mass vibrates, not <em>how</em>. (A pendulum is different: there gravity <em>is</em> the restoring force.)</p>
+
+<p><strong>What if we keep gravity?</strong> Measure $y$ from the <em>unstretched</em> spring instead. Then $m\ddot y = mg - ky$. Write $y=\delta_{st}+x$ and use $k\delta_{st}=mg$: $m\ddot x = mg - k\delta_{st} - kx = -kx$. Same equation, same $\omega_n$. Gravity only moves the center of the motion down by $\delta_{st}$. Try changing $g$ below: the mass hangs lower on Jupiter, but it bobs at exactly the same rate.</p>
+<div class="demo concept" id="c-gravity">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Why gravity disappears</div>
+  <div class="grid2"><canvas id="c-gravity-anim" class="plot" style="height:330px;border:1px solid var(--border)"></canvas><div><canvas id="c-gravity-plot" class="plot" style="height:300px"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>x, measured from equilibrium</span><span><span class="sw" style="background:var(--c2)"></span>y, measured from unstretched</span><span><span class="sw" style="background:var(--c3)"></span>δst</span></div></div></div>
+  <div class="controls" id="c-gravity-ctl"></div>
+  <div class="bar" id="c-gravity-pre"><span class="lbl">Try:</span></div>
+  
+  <div class="bar" id="c-gravity-btn"></div>
+  <div class="stats" id="c-gravity-stats"></div>
+  <p class="small concept-note">Notice: the dashed orange curve (y) is the blue curve (x) shifted down by δst. Same shape, same period; only the center moves.</p>
+</div>
+<h3>Combining springs</h3>
+<p>Springs in <strong>parallel</strong> share the displacement: $k_{eq}=k_1+k_2$. Springs in <strong>series</strong> share the force: $\frac{1}{k_{eq}}=\frac{1}{k_1}+\frac{1}{k_2}$. Dampers combine the same way.</p>
+
+<div class="demo concept" id="c-springs">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Springs in parallel and series, and their equivalent spring</div>
+  <canvas id="c-springs-anim" class="anim" style="height:330px"></canvas><p class="small concept-note" id="c-springs-why"></p>
+  <div class="controls" id="c-springs-ctl"></div>
+  <div class="bar" id="c-springs-pre"><span class="lbl">Try:</span></div>
+  
+  <div class="bar" id="c-springs-btn"></div>
+  <div class="stats" id="c-springs-stats"></div>
+  <p class="small concept-note">The dashed green line shows that the single equivalent spring moves exactly like the pair under the same force. That is what “equivalent” means.</p>
+</div>
+<h3>Linearization in action: the pendulum</h3>
+<p>For a simple pendulum, $\sum M_O = I_O\ddot\theta$ gives $mL^2\ddot\theta = -mgL\sin\theta$, i.e. $\ddot\theta + \frac{g}{L}\sin\theta = 0$. This is <em>nonlinear</em>. For small angles, $\sin\theta\approx\theta$ and we get the linear oscillator $\ddot\theta + \frac{g}{L}\theta = 0$ with $\omega_n=\sqrt{g/L}$. How small is "small"? Find out below.</p>
+
+<p>Why does $\sin\theta\approx\theta$ work? Compare the two restoring terms as the angle grows:</p>
+<div class="demo concept" id="c-lin">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Why small angles: sin θ versus θ</div>
+  <div class="grid2"><canvas id="c-lin-anim" class="plot" style="height:260px;border:1px solid var(--border)"></canvas><div><canvas id="c-lin-plot" class="plot" style="height:240px"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c2)"></span>θ (linear model)</span><span><span class="sw" style="background:var(--c1)"></span>sin θ (exact)</span></div></div></div>
+  <div class="controls" id="c-lin-ctl"></div>
+  
+  
+  <div class="bar" id="c-lin-btn"></div>
+  <div class="stats" id="c-lin-stats"></div>
+  <p class="small concept-note">For small angles the two curves sit on top of each other. As θ grows the linear model pushes back harder than the real pendulum, so it predicts a period that is too short.</p>
+</div>
+<div class="demo" id="demo-pend">
+  <div class="demo-title"><span class="tag">Interactive</span>Nonlinear vs. linearized pendulum</div>
+  <div class="grid2">
+    <canvas id="pend-anim" class="plot" style="height:260px;border:1px solid var(--border)"></canvas>
+    <canvas id="pend-plot" class="plot" style="height:260px"></canvas>
+  </div>
+  <div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>Exact: $\ddot\theta+\frac gL\sin\theta=0$</span><span><span class="sw" style="background:var(--c2)"></span>Linearized: $\ddot\theta+\frac gL\theta=0$</span></div>
+  <div class="controls" id="pend-ctl"></div>
+  <div class="bar" id="pend-btn"></div>
+  <div class="stats" id="pend-stats"></div>
+  <div class="notes" id="pend-notes"></div>
+</div>
+<div class="try"><h4>Try this</h4><ul>
+  <li>At 10°, the two pendulums stay together for a long time. At what release angle does the period error reach about 1%? About 5%?</li>
+  <li>Change $L$. Both periods change, but does the <em>percentage</em> error change? Why not?</li>
+  <li>Release at 160°. The exact pendulum lingers near the top; the linear model cannot capture this.</li>
+</ul></div>
+<div class="wild"><span class="wi" aria-hidden="true">🕯️</span><div><b class="wh">Vibrations in the wild</b><p>Legend has it that a young Galileo timed a swinging lamp in Pisa Cathedral against his pulse and noticed that big and small swings took about the same time. That is the linear pendulum: period independent of amplitude. The demo above shows exactly where that stops being true.</p></div></div>
+</section>
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="lab.html"><small>← Previous</small>Home</a><a class="next" href="free.html"><small>Next →</small>Free undamped vibration</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/demos.js"></script>
+<script src="assets/concepts.js"></script>
+<script src="assets/concepts2.js"></script>
+</body>
+</html>

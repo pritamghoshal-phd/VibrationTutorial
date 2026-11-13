@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Damped free vibration · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html" class="active">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="damped">
+<h2><span class="num">3</span>Free damped vibration</h2>
+<p>Add the damper: $m\ddot x + c\dot x + kx=0$. With $x=e^{st}$, the characteristic equation $s^2+2\zeta\omega_n s+\omega_n^2=0$ has roots</p>
+$$ s_{1,2} = -\zeta\omega_n \pm \omega_n\sqrt{\zeta^2-1} $$
+<details class="deriv"><summary>Where does the characteristic equation come from?</summary>
+<p>Try a solution of the form $x=Ae^{\lambda t}$. Then $\dot x=\lambda Ae^{\lambda t}$ and $\ddot x=\lambda^2Ae^{\lambda t}$, and substituting into $M\ddot x+C\dot x+Kx=0$ gives</p>
+$$\left(M\lambda^2+C\lambda+K\right)Ae^{\lambda t}=0.$$
+<p>The exponential is never zero, and $A=0$ is the trivial "nothing moves" solution, so any actual motion requires</p>
+$$M\lambda^2+C\lambda+K=0\quad\Longrightarrow\quad \lambda=\frac{-C\pm\sqrt{C^2-4MK}}{2M}=\left(-\zeta\pm\sqrt{\zeta^2-1}\right)\omega_n,$$
+<p>with $\omega_n=\sqrt{K/M}$ and $\zeta=C/2\sqrt{KM}$. Dividing by $m$ is what turns $s$ (or $\lambda$) into the form shown above.</p>
+</details>
+<p>The sign under the square root splits the behavior into three cases:</p>
+<div class="card">
+<p style="margin-top:0"><strong>Underdamped, $\zeta&lt;1$.</strong> Complex roots. The mass oscillates inside a decaying envelope, at the <em>damped natural frequency</em> $\omega_d=\omega_n\sqrt{1-\zeta^2}$:</p>
+$$ x(t)=e^{-\zeta\omega_n t}\left[x_0\cos\omega_d t + \frac{v_0+\zeta\omega_n x_0}{\omega_d}\sin\omega_d t\right] $$
+<p><strong>Critically damped, $\zeta=1$.</strong> Repeated root. Returns to equilibrium as fast as possible without oscillating: $x(t)=\left[x_0+(v_0+\omega_n x_0)t\right]e^{-\omega_n t}$.</p>
+<p style="margin-bottom:0"><strong>Overdamped, $\zeta&gt;1$.</strong> Two real negative roots. A slow, sluggish creep back: $x(t)=C_1e^{s_1 t}+C_2e^{s_2 t}$.</p>
+</div>
+<details class="deriv"><summary>From complex roots to cosines and sines</summary>
+<p>With two distinct roots the general solution is $x=A_1e^{\lambda_1t}+A_2e^{\lambda_2t}$. In the underdamped case $\lambda_{1,2}=-\zeta\omega_n\pm i\omega_d$, so</p>
+$$x=e^{-\zeta\omega_nt}\left(A_1e^{i\omega_dt}+A_2e^{-i\omega_dt}\right).$$
+<p>Euler's formula $e^{\pm i\omega_dt}=\cos\omega_dt\pm i\sin\omega_dt$ turns the bracket into a combination of cosine and sine:</p>
+$$x=e^{-\zeta\omega_nt}\left(C\cos\omega_dt+S\sin\omega_dt\right),\qquad C=A_1+A_2,\quad S=i(A_1-A_2).$$
+<p>For a real motion $A_1$ and $A_2$ are complex conjugates, which makes $C$ and $S$ real. The initial conditions give $C=x_0$ and $S=(v_0+\zeta\omega_nx_0)/\omega_d$. With $\zeta=0$ this reduces to the undamped $x=C\cos\omega_nt+S\sin\omega_nt$, which never decays.</p>
+</details>
+<p>The roots $s_{1,2}$ are the whole story. Their <em>real part</em> sets how fast the motion decays, and their <em>imaginary part</em> sets how fast it oscillates. Watch them move as the damping changes:</p>
+<div class="demo concept" id="c-splane">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Roots tell the story</div>
+  <div class="grid2"><div><canvas id="c-splane-plot" class="plot" style="height:280px"></canvas><p class="small" style="margin:.2rem 0 0">Roots in the complex plane (dashed circle: radius ωₙ). The shaded right half means growth.</p></div><div><canvas id="c-splane-resp" class="plot" style="height:280px"></canvas><p class="small" style="margin:.2rem 0 0">The response for those roots, released from x₀ with v₀ = 0.</p></div></div>
+  <div class="controls" id="c-splane-ctl"></div>
+  <div class="bar" id="c-splane-pre"><span class="lbl">Try:</span></div>
+  <div class="bar"><label class="check"><input type="checkbox" id="c-splane-sweep"> Sweep ζ automatically from 0 to 2</label></div>
+  <div class="bar" id="c-splane-btn"></div>
+  <div class="stats" id="c-splane-stats"></div>
+  <p class="small concept-note">Underdamped roots slide around the circle toward the real axis; at ζ = 1 they meet; beyond that they split along the real axis. One root then creeps toward zero, which is why heavy damping is slow.</p>
+</div>
+<p><strong>Measuring damping: the logarithmic decrement.</strong> For an underdamped system, the ratio of successive peaks is constant. If $x_1$ and $x_{n+1}$ are peaks $n$ cycles apart,</p>
+$$ \delta = \frac1n\ln\frac{x_1}{x_{n+1}} = \frac{2\pi\zeta}{\sqrt{1-\zeta^2}} \qquad\Longleftrightarrow\qquad \zeta=\frac{\delta}{\sqrt{4\pi^2+\delta^2}} $$
+<p>This is how damping is measured in the lab: pluck the structure and read the peaks. The demo below does exactly that on the simulated response.</p>
+
+<div class="demo" id="demo-damped">
+  <div class="demo-title"><span class="tag">Interactive</span>Damped free vibration</div>
+  <canvas id="damp-anim" class="anim"></canvas>
+  <div class="controls" id="damp-ctl"></div>
+  <div class="bar" id="damp-pre"><span class="lbl">Presets:</span></div>
+  <div class="bar" id="damp-btn"></div>
+  <div class="stats" id="damp-stats"></div>
+  <div class="notes" id="damp-notes"></div>
+  <canvas id="damp-plot" class="plot"></canvas>
+  <div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>$x(t)$</span><span><span class="sw" style="background:var(--c2)"></span>Envelope $\pm X e^{-\zeta\omega_n t}$</span><span><span class="sw" style="background:var(--c4)"></span>Detected peaks</span></div>
+  <div class="stats" id="damp-peaks"></div>
+  <h3 style="margin-top:1.2rem;font-size:1rem">All three regimes side by side ($v_0=0$)</h3>
+  <canvas id="damp-cmp" class="plot short"></canvas>
+  <div class="legendrow" id="damp-cmp-leg"></div>
+</div>
+<div class="try"><h4>Try this</h4><ul>
+  <li>Use the presets. Which returns to rest fastest: $\zeta=0.5$, $1$, or $2$?</li>
+  <li>With $\zeta=0.05$, compare $\omega_d$ and $\omega_n$. Light damping barely changes the frequency, but strongly affects decay.</li>
+  <li>Check that "ζ from δ" agrees with the slider value. This is your virtual lab measurement.</li>
+  <li>Overdamped, $x_0&gt;0$, large negative $v_0$: can it overshoot? How many times can it cross zero at most?</li>
+</ul></div>
+<h3>Different systems, same motion</h3>
+<p>Divide the equation of motion by $M$ and it becomes the standard form $\ddot x+2\zeta\omega_n\dot x+\omega_n^2x=f(t)/M$. The free response therefore depends on only <strong>two numbers</strong>, $\zeta$ and $\omega_n$, plus the initial conditions, not on $M$, $C$ and $K$ individually. Two systems that look nothing alike, with different masses, geometry, springs and dampers, will vibrate identically if their $\zeta$ and $\omega_n$ match. The standard form makes that visible at a glance, and it also tells you immediately whether a system is under-, critically or overdamped.</p>
+<div class="demo concept" id="c-same">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Same ζ and ωₙ, same motion</div>
+  <canvas id="c-same-anim" class="anim" style="height:300px"></canvas>
+  <div class="controls" id="c-same-ctl"></div>
+  
+  
+  <div class="bar" id="c-same-btn"></div>
+  <div class="stats" id="c-same-stats"></div>
+  <p class="small concept-note">Each system has different m, c and k (listed on the left), chosen so that its ζ and ωₙ match the sliders. Released from the same x₀, all three move in lockstep.</p>
+</div>
+
+<p><strong>Where does the energy go?</strong> In free vibration nothing adds energy, and the damper removes it as heat. Watch the energy shift from the spring and the mass into the damper:</p>
+<div class="demo concept" id="c-heat">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Where the energy goes</div>
+  <canvas id="c-heat-anim" class="anim"></canvas><canvas id="c-heat-bar" style="height:70px;margin-top:.5rem"></canvas><canvas id="c-heat-plot" class="plot short" style="margin-top:.4rem"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>energy in the spring and mass</span><span><span class="sw" style="background:#a61e4d"></span>heat dissipated by the damper</span></div>
+  <div class="controls" id="c-heat-ctl"></div>
+  
+  
+  <div class="bar" id="c-heat-btn"></div>
+  <div class="stats" id="c-heat-stats"></div>
+  <p class="small concept-note">The total never changes. Energy only moves from kinetic and potential into heat, fastest when the mass moves fastest (the damper force is cẋ).</p>
+</div>
+<div class="wild"><span class="wi" aria-hidden="true">🚗</span><div><b class="wh">Vibrations in the wild</b><p>Old car-mechanic test: push down hard on one corner of a parked car and let go. A healthy suspension settles after about one rebound. If it keeps bouncing, the shock absorbers (the dampers) are worn and ζ has dropped too low.</p></div></div>
+</section>
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="free.html"><small>← Previous</small>Free undamped vibration</a><a class="next" href="forced.html"><small>Next →</small>Forced harmonic vibration</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/demos.js"></script>
+<script src="assets/concepts.js"></script>
+<script src="assets/concepts2.js"></script>
+</body>
+</html>

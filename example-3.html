@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 3: Two carts linked by a pivoting bar · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html" class="active">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<nav class="sub" aria-label="Examples"><a href="example-1.html">Example 1</a><a href="example-2.html">Example 2</a><a href="example-3.html" class="active">Example 3</a><a href="example-4.html">Example 4</a><a href="example-5.html">Example 5</a><a href="example-6.html">Example 6</a><a href="example-7.html">Example 7</a><a href="example-8.html">Example 8</a></nav>
+<p class="crumbs"><a href="examples.html">Worked examples</a> › Example 3</p>
+<h2><span class="num">Example 3</span>Two carts linked by a pivoting bar</h2>
+<div class="tags"><span>EOM</span><span>small angles</span><span>massless links</span></div>
+<div class="card problem"><h3>Problem</h3>
+<p>Two masses, each $m$, are connected by links to a massless bar of length $L$ that pivots about a pin at its lower end. The lower mass attaches at $L/2$, the upper at $L$. Each mass is connected to ground by a spring $k$ and moves on a smooth surface. $x$ is the upper mass's position, measured from where the bar is vertical (springs unstretched). Assume small rotations.</p>
+<p><b>Find:</b> (a) the equation of motion in terms of $x$; (b) the natural frequency.</p>
+</div>
+
+<div class="demo" id="ex3">
+  <div class="demo-title"><span class="tag">Interactive</span>The system in motion</div>
+  <canvas id="ex3-anim" class="anim" style="height:330px"></canvas>
+  <p class="small" style="margin:.3rem 0 0">Displacements in the drawing are scaled up so the motion is visible; the plot shows the true values.</p>
+  <div class="controls" id="ex3-ctl"></div>
+  
+  
+  <div class="bar" id="ex3-btn"></div>
+  <div class="stats" id="ex3-stats"></div>
+  <div class="notes" id="ex3-notes"></div>
+  <canvas id="ex3-plot" class="plot short"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>x(t)</span></div>
+</div>
+
+<h3>Solution</h3>
+<p class="small">Every solution follows the same five steps: coordinates, free-body diagrams, kinetics, kinematics, solve. Try the problem first, then open one step at a time to check your work.</p>
+<details class="step"><summary>Step 1 · Choose a coordinate system</summary>
+<p>Let $x$ be the <b>upper</b> cart's position and $x_1$ the <b>lower</b> cart's position, both positive to the right and zero when the bar is vertical (springs unstretched). Let $\theta$ be the bar's small rotation.</p>
+</details>
+<details class="step"><summary>Step 2 · Draw the free-body diagrams</summary>
+<figure class="fbdfig"><svg class="fbd" viewBox="0 0 600 260" role="img" aria-label="Free-body diagrams of both carts and the massless bar. PA and PB are the link forces, drawn in +x on the carts and equal and opposite on the bar. Both springs push back in −x."><defs><marker id="ah-e3-varc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c1)"/></marker><marker id="ah-e3-varc3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c3)"/></marker><marker id="ah-e3-varmuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><text x="95" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">Upper cart</text><rect x="63.0" y="80.0" width="64" height="40" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="95" y="105" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">m</text><line x1="63" y1="92" x2="12" y2="92" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e3-varc1)"/><text x="20" y="84" font-size="14" fill="var(--c1)" text-anchor="middle" font-weight="400" font-style="italic">kx</text><line x1="127" y1="108" x2="178" y2="108" stroke="var(--c3)" stroke-width="2.4" marker-end="url(#ah-e3-varc3)"/><text x="168" y="128" font-size="14" fill="var(--c3)" text-anchor="middle" font-weight="400" font-style="italic">P<tspan baseline-shift="sub" font-size="75%">A</tspan></text><text x="95" y="150" font-size="11" fill="var(--muted)" text-anchor="middle" font-weight="400">mg and N are vertical</text><text x="300" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">Massless bar</text><line x1="300" y1="45" x2="300" y2="215" stroke="var(--c5)" stroke-width="9"/><line x1="300" y1="50" x2="245" y2="50" stroke="var(--c3)" stroke-width="2.4" marker-end="url(#ah-e3-varc3)"/><text x="240" y="45" font-size="14" fill="var(--c3)" text-anchor="end" font-weight="400" font-style="italic">P<tspan baseline-shift="sub" font-size="75%">A</tspan></text><line x1="300" y1="130" x2="245" y2="130" stroke="var(--c3)" stroke-width="2.4" marker-end="url(#ah-e3-varc3)"/><text x="240" y="125" font-size="14" fill="var(--c3)" text-anchor="end" font-weight="400" font-style="italic">P<tspan baseline-shift="sub" font-size="75%">B</tspan></text><line x1="300" y1="215" x2="355" y2="215" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e3-varmuted)"/><text x="360" y="220" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">O<tspan baseline-shift="sub" font-size="75%">x</tspan></text><line x1="300" y1="215" x2="300" y2="252" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e3-varmuted)"/><text x="310" y="250" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">O<tspan baseline-shift="sub" font-size="75%">y</tspan></text><text x="316" y="55" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">L</text><text x="316" y="135" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">L/2</text><text x="500" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">Lower cart</text><rect x="468.0" y="110.0" width="64" height="40" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="500" y="135" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">m</text><line x1="468" y1="122" x2="418" y2="122" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e3-varc1)"/><text x="428" y="114" font-size="14" fill="var(--c1)" text-anchor="middle" font-weight="400" font-style="italic">kx₁</text><line x1="532" y1="138" x2="584" y2="138" stroke="var(--c3)" stroke-width="2.4" marker-end="url(#ah-e3-varc3)"/><text x="572" y="158" font-size="14" fill="var(--c3)" text-anchor="middle" font-weight="400" font-style="italic">P<tspan baseline-shift="sub" font-size="75%">B</tspan></text><text x="500" y="180" font-size="11" fill="var(--muted)" text-anchor="middle" font-weight="400">mg and N are vertical</text></svg><figcaption>Free-body diagrams of both carts and the massless bar. P<sub>A</sub> and P<sub>B</sub> are the link forces, drawn in +x on the carts and equal and opposite on the bar. Both springs push back in −x.</figcaption></figure>
+</details>
+<details class="step"><summary>Step 3 · Kinetics (Newton–Euler equations)</summary>
+<p><b>Upper cart:</b> $\;m\ddot x=-kx+P_A$</p>
+<p><b>Lower cart:</b> $\;m\ddot x_1=-kx_1+P_B$</p>
+<p><b>Massless bar</b>, moments about the pin O (zero because the bar has no inertia): $\;P_A L+P_B\tfrac L2=0\;\Rightarrow\;P_B=-2P_A$</p>
+</details>
+<details class="step"><summary>Step 4 · Kinematics (constraints)</summary>
+<p>For a small rotation $\theta$ of the bar, the top moves $L\theta$ and the midpoint moves $\tfrac L2\theta$:</p>
+$$x=L\theta,\qquad x_1=\tfrac L2\theta=\tfrac12x$$
+</details>
+<details class="step"><summary>Step 5 · Solve</summary>
+<p>From the upper cart, $P_A=m\ddot x+kx$. Then $P_B=-2(m\ddot x+kx)$, and the lower cart with $x_1=x/2$ gives</p>
+$$\tfrac12m\ddot x+\tfrac12kx=-2(m\ddot x+kx)\;\;\Longrightarrow\;\;\tfrac52\left(m\ddot x+kx\right)=0$$
+$$\tfrac54m\ddot x+\tfrac54kx=0,\qquad \omega_n=\sqrt{\frac km}$$
+<p class="small">L cancels: both the inertia and the stiffness pick up the same lever factor. Energy check: $T=\tfrac12(\tfrac54m)\dot x^2$, $V=\tfrac12(\tfrac54k)x^2$. ✓</p>
+</details>
+<details class="answer"><summary>Answer</summary>
+<p>(a) $\displaystyle \tfrac54m\ddot x+\tfrac54kx=0\;\;\Longleftrightarrow\;\;\ddot x+\frac km x=0$</p>
+<p>(b) $\displaystyle \omega_n=\sqrt{\frac km}$, independent of $L$.</p>
+</details>
+
+<div class="try"><h4>Explore</h4><ul><li>Change L. The bar angle for the same x₀ changes, but the period does not.</li><li>What if the lower mass were attached at L/3 instead? Predict ωₙ, then reason with the energy expressions.</li></ul></div>
+
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="example-2.html"><small>← Previous</small>Example 2</a><a class="next" href="example-4.html"><small>Next →</small>Example 4</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/examples.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 7: Keeping a base-driven mass below a limit · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html" class="active">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<nav class="sub" aria-label="Examples"><a href="example-1.html">Example 1</a><a href="example-2.html">Example 2</a><a href="example-3.html">Example 3</a><a href="example-4.html">Example 4</a><a href="example-5.html">Example 5</a><a href="example-6.html">Example 6</a><a href="example-7.html" class="active">Example 7</a><a href="example-8.html">Example 8</a></nav>
+<p class="crumbs"><a href="examples.html">Worked examples</a> › Example 7</p>
+<h2><span class="num">Example 7</span>Keeping a base-driven mass below a limit</h2>
+<div class="tags"><span>base excitation</span><span>frequency response</span><span>design</span></div>
+<div class="card problem"><h3>Problem</h3>
+<p>Block A (mass $m$) is connected by a spring $k$ to a base B that moves as $y(t)=y_0\sin\omega t$, and by a second spring $k$ to a fixed wall.</p>
+<p>Use $m=4$ kg and $k=800$ N/m.</p>
+<p><b>Find:</b> the range of frequencies $\omega$ for which the amplitude of A does not exceed $1.5\,y_0$.</p>
+</div>
+
+<div class="demo" id="ex7">
+  <div class="demo-title"><span class="tag">Interactive</span>The system in motion</div>
+  <canvas id="ex7-anim" class="anim" style="height:330px"></canvas>
+  <p class="small" style="margin:.3rem 0 0">Displacements in the drawing are scaled up so the motion is visible; the plot shows the true values.</p>
+  <div class="controls" id="ex7-ctl"></div>
+  <div class="bar"><label class="check"><input type="checkbox" id="ex7-cb" checked> Start on the steady-state solution</label></div>
+  <div class="bar" id="ex7-pre"><span class="lbl">Presets:</span></div>
+  <div class="bar" id="ex7-btn"></div>
+  <div class="stats" id="ex7-stats"></div>
+  <div class="notes" id="ex7-notes"></div>
+  <div class="grid2"><div><canvas id="ex7-plot" class="plot short"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>x(t)</span><span><span class="sw" style="background:var(--c2)"></span>±1.5 y₀ limit (green); steady state (orange)</span></div></div><div><canvas id="ex7-plot2" class="plot short"></canvas><p class="small" style="margin:.2rem 0 0">Steady-state amplitude vs forcing frequency; the dot is your current ω.</p></div></div>
+</div>
+
+<h3>Solution</h3>
+<p class="small">Every solution follows the same five steps: coordinates, free-body diagrams, kinetics, kinematics, solve. Try the problem first, then open one step at a time to check your work.</p>
+<details class="step"><summary>Step 1 · Choose a coordinate system</summary>
+<p>Let $x$ be the block's position, positive to the right, with both springs unstretched when $x=0$ and $y=0$. The base motion $y(t)=y_0\sin\omega t$ is prescribed.</p>
+</details>
+<details class="step"><summary>Step 2 · Draw the free-body diagrams</summary>
+<figure class="fbdfig"><svg class="fbd" viewBox="0 0 520 220" role="img" aria-label="Free-body diagram of the block. Both spring forces point in −x when x and x − y are positive."><defs><marker id="ah-e7-varc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c1)"/></marker><marker id="ah-e7-varc2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c2)"/></marker><marker id="ah-e7-varmuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><text x="260" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">Block A</text><rect x="218.0" y="81.0" width="84" height="58" rx="6" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><text x="260" y="115" font-size="17" fill="currentColor" text-anchor="middle" font-weight="400" font-style="italic">m</text><line x1="218" y1="98" x2="120" y2="98" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e7-varc1)"/><text x="112" y="94" font-size="14" fill="var(--c1)" text-anchor="end" font-weight="400" font-style="italic">k(x − y)</text><line x1="218" y1="124" x2="120" y2="124" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e7-varc1)"/><text x="112" y="129" font-size="14" fill="var(--c1)" text-anchor="end" font-weight="400" font-style="italic">kx</text><line x1="260" y1="139" x2="260" y2="200" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e7-varc2)"/><text x="270" y="200" font-size="14" fill="var(--c2)" text-anchor="start" font-weight="400" font-style="italic">mg</text><line x1="290" y1="81" x2="290" y2="35" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e7-varmuted)"/><text x="300" y="42" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">N</text><line x1="330" y1="60" x2="400" y2="60" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e7-varmuted)"/><text x="408" y="64" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">+x</text><text x="320" y="150" font-size="11" fill="var(--muted)" text-anchor="start" font-weight="400">left spring: stretched by x − y</text><text x="320" y="166" font-size="11" fill="var(--muted)" text-anchor="start" font-weight="400">right spring: compressed by x</text></svg><figcaption>Free-body diagram of the block. Both spring forces point in −x when x and x − y are positive.</figcaption></figure>
+</details>
+<details class="step"><summary>Step 3 · Kinetics (Newton–Euler equations)</summary>
+<p>Newton's second law for the block (horizontal):</p>
+$$m\ddot x=-k(x-y)-kx$$
+</details>
+<details class="step"><summary>Step 4 · Kinematics (constraints)</summary>
+<p>The base motion is given, so the only kinematic relation needed is the stretch of each spring:</p>
+$$\text{left spring: } x-y,\qquad \text{right spring: } x,\qquad y=y_0\sin\omega t$$
+</details>
+<details class="step"><summary>Step 5 · Solve</summary>
+<p>Rearranged:</p>
+$$m\ddot x+2kx=ky_0\sin\omega t,\qquad \omega_n=\sqrt{\frac{2k}m}=\sqrt{\frac{1600}{4}}=20\ \text{rad/s}$$
+<p>Steady-state amplitude, with $r=\omega/\omega_n$:</p>
+$$X=\frac{ky_0}{2k-m\omega^2}=\frac{y_0/2}{1-r^2}$$
+<p>Require $|X|\le1.5\,y_0\iff|1-r^2|\ge\tfrac13$:</p>
+<p><b>Below resonance:</b> $r\le\sqrt{2/3}=0.816\Rightarrow\omega\le16.3$ rad/s. <b>Above resonance:</b> $r\ge\sqrt{4/3}=1.155\Rightarrow\omega\ge23.1$ rad/s.</p>
+</details>
+<details class="answer"><summary>Answer</summary>
+<p>$$\omega\le16.3\ \text{rad/s}\quad\text{or}\quad\omega\ge23.1\ \text{rad/s}$$</p>
+<p class="small">Avoid the band $16.3&lt;\omega&lt;23.1$ rad/s around resonance ($\omega_n=20$ rad/s).</p>
+</details>
+
+<div class="try"><h4>Explore</h4><ul><li>Use the presets to step through 10, 16.3, 20, 23.1 and 30 rad/s. Watch the response cross the green ±1.5y₀ lines.</li><li>Without damping, what happens at exactly 20 rad/s?</li><li>Increase k. Does the allowed band move up or down, and does it get wider?</li></ul></div>
+
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="example-6.html"><small>← Previous</small>Example 6</a><a class="next" href="example-8.html"><small>Next →</small>Example 8</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/examples.js"></script>
+</body>
+</html>

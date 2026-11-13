@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summary and concept checks · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html" class="active">6 · Summary</a>
+    <a href="examples.html">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="summary">
+<h2><span class="num">6</span>Summary and concept checks</h2>
+<div class="card" style="overflow-x:auto">
+<table class="sheet">
+<tr><th>Situation</th><th>Equation</th><th>Key result</th></tr>
+<tr><td>Standard form</td><td>$\ddot x+2\zeta\omega_n\dot x+\omega_n^2x=F/m$</td><td>$\omega_n=\sqrt{k/m}$, $\zeta=c/2\sqrt{km}$</td></tr>
+<tr><td>Free, undamped</td><td>$m\ddot x+kx=0$</td><td>$x=x_0\cos\omega_nt+\frac{v_0}{\omega_n}\sin\omega_nt$</td></tr>
+<tr><td>Free, underdamped</td><td>$m\ddot x+c\dot x+kx=0$, $\zeta&lt;1$</td><td>$\omega_d=\omega_n\sqrt{1-\zeta^2}$, decay $e^{-\zeta\omega_nt}$</td></tr>
+<tr><td>Log decrement</td><td>$\delta=\frac1n\ln\frac{x_1}{x_{n+1}}$</td><td>$\zeta=\delta/\sqrt{4\pi^2+\delta^2}\approx\delta/2\pi$</td></tr>
+<tr><td>Harmonic force</td><td>$m\ddot x+c\dot x+kx=F_0\cos\omega t$</td><td>$\frac{X}{F_0/k}=\frac{1}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}$, $\tan\phi=\frac{2\zeta r}{1-r^2}$</td></tr>
+<tr><td>Resonance</td><td>$r=1$</td><td>$X/\delta_{st}=1/2\zeta$, $\phi=90^\circ$</td></tr>
+<tr><td>Sign check</td><td>$M\ddot x+C\dot x+Kx=f(t)$</td><td>$M$, $C$, $K$ all the same sign, or the derivation has an error</td></tr>
+<tr><td>Undamped forcing</td><td>$M\ddot x+Kx=F_0\cos\omega t$</td><td>$x_p=\dfrac{F_0/K}{1-r^2}\cos\omega t$; $A&lt;0$ means 180° out of phase</td></tr>
+<tr><td>Base excitation</td><td>$m\ddot x+c\dot x+kx=c\dot y+ky$</td><td>$TR=\sqrt{\frac{1+(2\zeta r)^2}{(1-r^2)^2+(2\zeta r)^2}}$, isolation for $r&gt;\sqrt2$</td></tr>
+<tr><td>Rotating imbalance</td><td>$(M+m)\ddot x+c\dot x+kx=me\omega^2\cos\omega t$</td><td>$\dfrac{X(M+m)}{me}=\dfrac{r^2}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}\to1$ at high speed</td></tr>
+</table>
+</div>
+
+<h3>Concept checks</h3>
+<p class="small">Try each one before opening the answer. Many can be checked with the simulations above.</p>
+
+<h4 class="qgroup">Equations of motion</h4>
+<details><summary>1. Why does $mg$ not appear in the equation of motion of a mass hanging on a vertical spring?</summary>
+<p>Because $x$ is measured from static equilibrium, where $k\delta_{st}=mg$. Those two terms cancel. Gravity only shifts the equilibrium position.</p></details>
+<details><summary>2. Two identical springs of stiffness $k$ hold the same mass, first in parallel, then in series. What is the ratio of the natural frequencies?</summary>
+<p>Parallel: $k_{eq}=2k$. Series: $k_{eq}=k/2$. Since $\omega_n\propto\sqrt{k_{eq}}$, the ratio is $\omega_{par}/\omega_{ser}=\sqrt{2k\,/\,(k/2)}=\mathbf{2}$.</p></details>
+<details><summary>3. A uniform rod of mass $m$ and length $L$ swings about a pivot at one end. Find $\omega_n$ and compare with a simple pendulum of the same length.</summary>
+<p>$\sum M_O=I_O\ddot\theta$ with $I_O=\tfrac13 mL^2$ and gravity acting at $L/2$: $\tfrac13 mL^2\ddot\theta=-mg\tfrac L2\sin\theta$. Linearizing gives $\ddot\theta+\frac{3g}{2L}\theta=0$, so $\omega_n=\sqrt{3g/2L}$. That is $\sqrt{1.5}\approx1.22$ times faster than a simple pendulum, because more of the rod's mass sits close to the pivot.</p></details>
+<details><summary>4. Loading a car's trunk makes the body sag by 2 cm. Estimate the natural frequency of the car bouncing on its suspension.</summary>
+<p>$k\delta_{st}=mg$ gives $\omega_n=\sqrt{k/m}=\sqrt{g/\delta_{st}}=\sqrt{9.81/0.02}\approx22$ rad/s, so $f_n\approx\mathbf{3.5}$ Hz. You don't need $k$ or $m$ separately, only the static deflection.</p></details>
+<details><summary>5. Why do the pendulum's exact and linearized periods agree at small angles but not large ones?</summary>
+<p>$\sin\theta\approx\theta$ has error $\approx\theta^3/6$. The real pendulum's restoring moment is weaker than the linear one at large angles, so it swings more slowly and its period grows with amplitude. A linear system's period never depends on amplitude.</p></details>
+
+<h4 class="qgroup">Free and damped vibration</h4>
+<details><summary>6. A spring–mass system has $f_n=2$ Hz. The mass is quadrupled. What is the new natural frequency?</summary>
+<p>$f_n\propto\sqrt{k/m}$, so quadrupling $m$ halves $f_n$: <strong>1 Hz</strong>.</p></details>
+<details><summary>7. An undamped oscillator with $f_n=2$ Hz vibrates with amplitude 5 cm. What are its maximum velocity and maximum acceleration?</summary>
+<p>$\omega_n=2\pi(2)=12.6$ rad/s. $v_{max}=\omega_nX=\mathbf{0.63}$ m/s and $a_{max}=\omega_n^2X=\mathbf{7.9}$ m/s². Each derivative multiplies the amplitude by $\omega_n$. (Equivalently, energy: $\tfrac12 kX^2=\tfrac12 mv_{max}^2$.)</p></details>
+<details><summary>8. Successive peaks of a free decay are 10 mm and 8 mm. Estimate $\zeta$.</summary>
+<p>$\delta=\ln(10/8)=0.223$, so $\zeta=\delta/\sqrt{4\pi^2+\delta^2}\approx\mathbf{0.036}$.</p></details>
+<details><summary>9. How much does damping change the frequency? Compare $\omega_d$ with $\omega_n$ for $\zeta=0.1$ and $\zeta=0.5$.</summary>
+<p>$\omega_d/\omega_n=\sqrt{1-\zeta^2}$: <strong>0.995</strong> for $\zeta=0.1$ (a 0.5% change) and <strong>0.866</strong> for $\zeta=0.5$. Light damping barely affects the frequency, but it strongly controls how fast the motion decays.</p></details>
+<details><summary>10. Which returns to equilibrium faster from an initial displacement: $\zeta=1$ or $\zeta=3$?</summary>
+<p>$\zeta=1$. Overdamped systems are dominated by the slow root $s_1=-\omega_n(\zeta-\sqrt{\zeta^2-1})$, which gets closer to zero as $\zeta$ grows. Check with the comparison plot in <a href="damped.html">Section 3</a>.</p></details>
+<details><summary>11. Door closers are tuned close to $\zeta=1$, but car suspensions are typically around $\zeta\approx0.2$–$0.4$. Why the difference?</summary>
+<p>A door should shut as fast as possible <em>without</em> slamming or bouncing, which is exactly what critical damping does. A car suspension must also isolate passengers from road bumps; lower damping transmits less of the high-frequency road input (see <a href="base.html">Section 5</a>), at the cost of a little overshoot after each bump.</p></details>
+<details><summary>12. You measure a free response whose peaks <em>grow</em>: 4 mm, 5 mm, 6.25 mm… What is the log decrement, and what does it tell you about the damping?</summary>
+<p>$\delta=\ln(4/5)=-0.223$, which gives $\zeta\approx\mathbf{-0.036}$. Negative damping means something is feeding energy into the system on every cycle, as in aircraft wing flutter, brake squeal, or a bowed violin string. Try $\zeta&lt;0$ in <a href="damped.html">Section 3</a>.</p></details>
+
+<h4 class="qgroup">Forced vibration</h4>
+<details><summary>13. At resonance, what is the phase between force and displacement, and what limits the amplitude?</summary>
+<p>The displacement lags the force by <strong>90°</strong>. The force is then in phase with the velocity, so it is balanced entirely by the damping force; only $c$ limits the amplitude ($X=\delta_{st}/2\zeta$).</p></details>
+<details><summary>14. A structure has $\zeta=0.05$. Roughly how much larger is its resonant response than its static deflection?</summary>
+<p>$M\approx1/2\zeta=\mathbf{10}$. A force that would deflect the structure 1 mm if applied slowly produces about 10 mm of vibration at resonance.</p></details>
+<details><summary>15. An undamped system with $f_n=10$ Hz is driven at 9.5 Hz, starting from rest. What do you see, and how often does the amplitude swell?</summary>
+<p><strong>Beats:</strong> the free and forced responses drift in and out of step. The envelope repeats at the difference frequency $|f-f_n|=0.5$ Hz, so the amplitude swells every <strong>2 s</strong>. Try the <em>Beats</em> preset in <a href="forced.html">Section 4</a>.</p></details>
+<details><summary>16. With $\zeta=0.05$ and $\omega_n=10$ rad/s, roughly how long until the transient is gone and only the steady state remains?</summary>
+<p>The transient decays as $e^{-\zeta\omega_n t}$ with time constant $1/\zeta\omega_n=2$ s. After about four time constants it is down to 2%, so about <strong>8 s</strong>. Turn on <em>Transient</em> in <a href="forced.html">Section 4</a> to watch it fade.</p></details>
+<details><summary>17. Well above resonance ($r\gg1$), you double the forcing frequency. What happens to the amplitude?</summary>
+<p>In the mass-controlled region $M\approx1/r^2$, so doubling $\omega$ cuts the amplitude by about a factor of <strong>4</strong>. The mass is too heavy to follow a faster force.</p></details>
+<details><summary>18. The force is $F_1\cos\omega_1t+F_2\cos\omega_2t$. How do you find the steady-state response?</summary>
+<p>By <strong>superposition</strong>: because the equation is linear, find the steady-state response to each term separately (each with its own $M$ and $\phi$) and add them. This is what makes Fourier analysis of vibration possible, and it fails for nonlinear systems like the large-angle pendulum.</p></details>
+
+<h4 class="qgroup">Base excitation and isolation</h4>
+<details><summary>19. A pump runs at 30 Hz. What natural frequency should its mounts give, and should you add a lot of damping?</summary>
+<p>Need $r&gt;\sqrt2$, so $f_n&lt;30/\sqrt2\approx21$ Hz; in practice aim for $r\approx3$ or more ($f_n\approx10$ Hz or lower). Above $r=\sqrt2$, more damping <em>increases</em> transmissibility, so use only enough damping to limit motion when passing through resonance at startup.</p></details>
+<details><summary>20. A car with suspension frequency 1.5 Hz drives over a washboard road whose ridges are 5 m apart. At what speed is the ride worst?</summary>
+<p>The base excitation frequency is $f=v/\lambda$. Resonance when $f=f_n$: $v=f_n\lambda=1.5\times5=\mathbf{7.5}$ m/s (27 km/h, 17 mph). Driving much faster puts the car in the isolation region, which is why washboard roads can feel smoother at higher speed.</p></details>
+<details><summary>21. A seismometer is a mass on a very soft spring inside a case bolted to the ground. Why does a soft spring let it measure ground displacement?</summary>
+<p>A soft spring gives a low $\omega_n$, so earthquake frequencies have $r\gg1$. Then $TR\to0$: the mass stays almost still in space while the case moves with the ground, so the relative motion between case and mass equals the ground displacement. An accelerometer uses the opposite limit (very stiff, $r\ll1$), where the relative motion is proportional to the base acceleration.</p></details>
+
+<h4 class="qgroup">Sign checks and rotating imbalance</h4>
+<details><summary>22. A classmate derives $2\ddot x+3\dot x-50x=0$ for a system of masses, springs and a dashpot. What does that predict, and what should they do?</summary>
+<p>$K$ has the opposite sign to $M$, so $\omega_n=\sqrt{K/M}$ is imaginary: the solution grows exponentially without oscillating. A passive mass–spring–dashpot system cannot do that, so there is a <strong>derivation error</strong>, most likely a spring force drawn in the wrong direction on an FBD or a sign slip in the kinematics. They should recheck the FBD (all coordinates positive, then stretched or compressed?) instead of just flipping the sign.</p></details>
+<details><summary>23. A fan with a small imbalance runs well below resonance. Its speed is doubled but still stays well below resonance. Roughly how does the vibration amplitude change? What if both speeds were well above resonance?</summary>
+<p>Well below resonance the amplitude is about $me\omega^2/k$, so doubling $\omega$ multiplies it by about <strong>4</strong>. Well above resonance $X\to me/(M+m)$ regardless of speed, so the amplitude <strong>hardly changes</strong>. The growing force is exactly cancelled by the mass becoming harder to move.</p></details>
+<h3>Where this leads</h3>
+<p>Systems with more than one coordinate (multi-DOF) are written as $\mathbf M\ddot{\mathbf x}+\mathbf C\dot{\mathbf x}+\mathbf K\mathbf x=\mathbf F(t)$. They have several natural frequencies and <em>mode shapes</em>, and each mode behaves like one of the 1-DOF oscillators on this page.</p>
+</section>
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="base.html"><small>← Previous</small>Base excitation and isolation</a><a class="next" href="examples.html"><small>Next →</small>Worked examples</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/demos.js"></script>
+</body>
+</html>

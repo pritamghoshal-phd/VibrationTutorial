@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base excitation and isolation · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html" class="active">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="base">
+<h2><span class="num">5</span>Base excitation and vibration isolation</h2>
+<p>Often the force does not act on the mass directly; instead the support moves. Think of a car on a bumpy road or an instrument on a vibrating floor. If the base moves as $y(t)$, the spring and damper respond to the <em>relative</em> motion:</p>
+$$ m\ddot x + c(\dot x-\dot y) + k(x-y) = 0 \quad\Longrightarrow\quad m\ddot x + c\dot x + kx = c\dot y + ky $$
+<p>Read the right-hand side as a force: moving the base pushes on the mass exactly as an applied force $c\dot y+ky$ would. If the base is connected only through springs, the equivalent force is just a spring constant times the base motion. For example, with a spring $k_1$ to the moving base and a spring $k_2$ to a fixed wall, $m\ddot x+(k_1+k_2)x=k_1y$: the base acts like a force of amplitude $k_1Y$, and everything from Section 4 applies with that $F_0$.</p>
+<p>For $y=Y\sin\omega t$, the steady-state amplitude ratio is the <strong>displacement transmissibility</strong>:</p>
+$$ TR=\frac{X}{Y}=\sqrt{\frac{1+(2\zeta r)^2}{(1-r^2)^2+(2\zeta r)^2}} $$
+<p>The same expression gives the <em>force</em> transmissibility: the fraction of a harmonic force on a machine that the mounts pass to the floor. Every curve crosses $TR=1$ at $r=\sqrt2$. <strong>Isolation ($TR&lt;1$) only happens for $r&gt;\sqrt2$</strong>, which means soft mounts: a natural frequency well below the operating frequency.</p>
+
+<p><strong>Force transmissibility.</strong> Turn the problem around: a machine with an internal harmonic force of fixed amplitude, $F_0\sin\omega t$, shakes on its mounts. The mounts pass a force $kx+c\dot x$ to the floor, and its amplitude relative to the shaking force is the same $TR$:</p>
+<div class="demo concept" id="c-floor">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>How much shaking reaches the floor?</div>
+  <div class="grid2"><canvas id="c-floor-anim" class="plot" style="height:320px;border:1px solid var(--border)"></canvas><div><canvas id="c-floor-plot" class="plot" style="height:300px"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c2)"></span>shaking force inside the machine</span><span><span class="sw" style="background:#a61e4d"></span>force on the floor</span></div></div></div>
+  <div class="controls" id="c-floor-ctl"></div>
+  <div class="bar" id="c-floor-pre"><span class="lbl">Try:</span></div>
+  
+  <div class="bar" id="c-floor-btn"></div>
+  <div class="stats" id="c-floor-stats"></div>
+  <p class="small concept-note">With stiff mounts (r well below 1) the floor feels about the whole force. Near resonance it feels more. With soft mounts (r &gt; √2) it feels only a fraction: that is vibration isolation.</p>
+</div>
+<div class="demo" id="demo-base">
+  <div class="demo-title"><span class="tag">Interactive</span>Base-excited system</div>
+  <canvas id="base-anim" class="anim" style="height:300px"></canvas>
+  <div class="controls" id="base-ctl"></div>
+  <div class="bar" id="base-btn"></div>
+  <div class="stats" id="base-stats"></div>
+  <div class="notes" id="base-notes"></div>
+  <div class="grid2">
+    <div><canvas id="base-plot" class="plot short"></canvas>
+      <div class="legendrow"><span><span class="sw" style="background:var(--c5)"></span>Base $y(t)$</span><span><span class="sw" style="background:var(--c1)"></span>Mass $x(t)$</span></div></div>
+    <div><canvas id="base-tr" class="plot short"></canvas>
+      <p class="small" style="margin:.2rem 0 0">Transmissibility vs $r$. Shaded: isolation region $r&gt;\sqrt2$.</p></div>
+  </div>
+</div>
+<div class="try"><h4>Try this</h4><ul>
+  <li>Set $r=3$. Increase $\zeta$ from 0.05 to 0.7. Does more damping help or hurt isolation here?</li>
+  <li>Now set $r=1$ and repeat. Why might an isolator still need <em>some</em> damping? (Hint: machines pass through resonance on startup.)</li>
+  <li>Find $r=\sqrt2\approx1.41$. Check that $TR=1$ regardless of $\zeta$.</li>
+</ul></div>
+<h2 style="margin-top:2.5rem"><span class="num">5b</span>Rotating imbalance</h2>
+<p>Many machines (motors, fans, pumps, a washing machine on spin) excite themselves. If the center of mass G of a spinning rotor sits a small distance $e$ (the <strong>eccentricity</strong>) from the spin axis O, then at constant speed $\omega$ the point G travels in a circle and accelerates toward the axis with magnitude $e\omega^2$. The shaft must pull the rotor inward with force $me\omega^2$, so the rotor pulls on its bearing with $me\omega^2$ <strong>outward</strong>, along the line from O to G, rotating with the shaft.</p>
+<p>Only $m$ and $e$ matter, not the rotor's shape, so the rotor can be modeled as a point mass $m$ at radius $e$. Now mount it in a frame of mass $M$ that slides on a spring $k$ and dashpot $c$, and measure the frame's position $x$. The point mass is at $x+e\cos\omega t$, so its acceleration is $\ddot x-e\omega^2\cos\omega t$. Newton's law for the frame and rotor together gives</p>
+$$M\ddot x+m\left(\ddot x-e\omega^2\cos\omega t\right)=-kx-c\dot x\quad\Longrightarrow\quad (M+m)\ddot x+c\dot x+kx=me\omega^2\cos\omega t.$$
+<ul>
+  <li>It is a harmonic force at the shaft speed, but its amplitude $me\omega^2$ <strong>grows with the square of the speed</strong>.</li>
+  <li>The natural frequency uses the <strong>total</strong> mass: $\omega_n=\sqrt{k/(M+m)}$, and $\zeta=c/2\sqrt{k(M+m)}$.</li>
+  <li>The steady amplitude is $X=\dfrac{me\omega^2/k}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}$, or in dimensionless form $\dfrac{X(M+m)}{me}=\dfrac{r^2}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}$.</li>
+</ul>
+<p>This curve behaves differently from the fixed-amplitude case: it starts at zero (a slowly turning rotor barely shakes anything), peaks near resonance, and at high speed levels off at 1, i.e. $X\to me/(M+m)$. At high speed the frame and rotor simply circle around their combined center of mass, which stays still.</p>
+<div class="demo concept" id="c-imbalance">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>A machine shaken by its own rotor</div>
+  <div class="grid2"><canvas id="c-imbalance-anim" class="anim" style="height:250px"></canvas><div><canvas id="c-imbalance-plot" class="plot short"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>your ζ</span><span><span class="sw" style="background:var(--c5)"></span>ζ = 0.05, 0.1, 0.25, 0.5, 1</span><span><span class="sw" style="background:var(--c3)"></span>high-speed limit = 1</span></div></div></div>
+  <div class="controls" id="c-imbalance-ctl"></div>
+  <div class="bar" id="c-imbalance-pre"><span class="lbl">Try:</span></div>
+  
+  <div class="bar" id="c-imbalance-btn"></div>
+  <div class="stats" id="c-imbalance-stats"></div>
+  <p class="small concept-note">The orange arrow is the force the rotor exerts on the frame: it spins with the rotor and gets longer as the speed rises. Compare the plot with the fixed-amplitude M(r) of Section 4: here the curve starts at 0 and tends to 1.</p>
+</div>
+
+<div class="wild"><span class="wi" aria-hidden="true">🏢</span><div><b class="wh">Vibrations in the wild</b><p>Many buildings in earthquake zones sit on base isolators: rubber-and-steel bearings that are very soft sideways. That gives the building a low horizontal natural frequency, so earthquake shaking lands in the r &gt; √2 isolation region and much less of it reaches the structure. It is the transmissibility curve above, at building scale.</p></div></div>
+</section>
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="forced.html"><small>← Previous</small>Forced harmonic vibration</a><a class="next" href="summary.html"><small>Next →</small>Summary and concept checks</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/demos.js"></script>
+<script src="assets/concepts.js"></script>
+<script src="assets/concepts2.js"></script>
+</body>
+</html>

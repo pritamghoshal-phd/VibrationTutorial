@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example 6: Rolling disk driven through a spring · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html" class="active">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<nav class="sub" aria-label="Examples"><a href="example-1.html">Example 1</a><a href="example-2.html">Example 2</a><a href="example-3.html">Example 3</a><a href="example-4.html">Example 4</a><a href="example-5.html">Example 5</a><a href="example-6.html" class="active">Example 6</a><a href="example-7.html">Example 7</a><a href="example-8.html">Example 8</a></nav>
+<p class="crumbs"><a href="examples.html">Worked examples</a> › Example 6</p>
+<h2><span class="num">Example 6</span>Rolling disk driven through a spring</h2>
+<div class="tags"><span>rolling</span><span>forced vibration</span><span>phase</span></div>
+<div class="card problem"><h3>Problem</h3>
+<p>A homogeneous disk of mass $m$ and radius $R$ rolls without slipping. Its center O is connected to the wall by a spring $k$ and to a massless moving base B by a spring $4k$. The base moves as $x_B(t)=b\sin\omega t$. $x$ is the position of the center.</p>
+<p>Use $m=4$ kg, $k=800$ N/m, $b=20$ mm.</p>
+<p><b>Find:</b> (a) the EOM in terms of $x$; (b) the particular solution; (c) the response amplitude at $\omega=15$ rad/s. Is it in phase or out of phase with the forcing?</p>
+</div>
+
+<div class="demo" id="ex6">
+  <div class="demo-title"><span class="tag">Interactive</span>The system in motion</div>
+  <canvas id="ex6-anim" class="anim" style="height:330px"></canvas>
+  <p class="small" style="margin:.3rem 0 0">Displacements in the drawing are scaled up so the motion is visible; the plot shows the true values.</p>
+  <div class="controls" id="ex6-ctl"></div>
+  <div class="bar"><label class="check"><input type="checkbox" id="ex6-cb" checked> Start on the particular (steady-state) solution</label></div>
+  
+  <div class="bar" id="ex6-btn"></div>
+  <div class="stats" id="ex6-stats"></div>
+  <div class="notes" id="ex6-notes"></div>
+  <div class="grid2"><div><canvas id="ex6-plot" class="plot short"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>x(t)</span><span><span class="sw" style="background:var(--c2)"></span>Particular solution</span></div></div><div><canvas id="ex6-plot2" class="plot short"></canvas><p class="small" style="margin:.2rem 0 0">Steady-state amplitude vs forcing frequency; the dot is your current ω.</p></div></div>
+</div>
+
+<h3>Solution</h3>
+<p class="small">Every solution follows the same five steps: coordinates, free-body diagrams, kinetics, kinematics, solve. Try the problem first, then open one step at a time to check your work.</p>
+<details class="step"><summary>Step 1 · Choose a coordinate system</summary>
+<p>Let $x$ be the position of the center O, positive to the right, with both springs unstretched when $x=0$ and $x_B=0$. Let $\phi$ be the disk's rotation, positive <b>clockwise</b> (so rolling right means $\phi$ increases).</p>
+</details>
+<details class="step"><summary>Step 2 · Draw the free-body diagrams</summary>
+<figure class="fbdfig"><svg class="fbd" viewBox="0 0 560 250" role="img" aria-label="Free-body diagram of the disk. Ff is the friction force at the contact point (drawn in +x; its sign comes out of the solution)."><defs><marker id="ah-e6-varc1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c1)"/></marker><marker id="ah-e6-varc2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--c2)"/></marker><marker id="ah-e6-varmuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><text x="280" y="20" font-size="12.5" fill="var(--muted)" text-anchor="middle" font-weight="600">Disk</text><circle cx="280" cy="125" r="62" fill="var(--mass)" stroke="var(--massEdge)" stroke-width="2"/><circle cx="280" cy="125" r="4" fill="currentColor"/><line x1="280" y1="125" x2="170" y2="125" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e6-varc1)"/><text x="160" y="118" font-size="14" fill="var(--c1)" text-anchor="end" font-weight="400" font-style="italic">kx</text><line x1="280" y1="112" x2="390" y2="112" stroke="var(--c1)" stroke-width="2.4" marker-end="url(#ah-e6-varc1)"/><text x="398" y="108" font-size="14" fill="var(--c1)" text-anchor="start" font-weight="400" font-style="italic">4k(x<tspan baseline-shift="sub" font-size="75%">B</tspan> − x)</text><line x1="280" y1="187" x2="360" y2="187" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e6-varc2)"/><text x="368" y="192" font-size="14" fill="var(--c2)" text-anchor="start" font-weight="400" font-style="italic">F<tspan baseline-shift="sub" font-size="75%">f</tspan></text><line x1="255" y1="125" x2="255" y2="230" stroke="var(--c2)" stroke-width="2.4" marker-end="url(#ah-e6-varc2)"/><text x="245" y="230" font-size="14" fill="var(--c2)" text-anchor="end" font-weight="400" font-style="italic">mg</text><line x1="305" y1="245" x2="305" y2="190" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e6-varmuted)"/><text x="315" y="240" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">N</text><text x="300" y="148" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">O</text><line x1="230" y1="60" x2="330" y2="60" stroke="var(--muted)" stroke-width="2.4" marker-end="url(#ah-e6-varmuted)"/><text x="340" y="64" font-size="14" fill="var(--muted)" text-anchor="start" font-weight="400" font-style="italic">+x, +φ (clockwise)</text></svg><figcaption>Free-body diagram of the disk. F<sub>f</sub> is the friction force at the contact point (drawn in +x; its sign comes out of the solution).</figcaption></figure>
+</details>
+<details class="step"><summary>Step 3 · Kinetics (Newton–Euler equations)</summary>
+<p><b>Translation:</b> $\;m\ddot x=-kx+4k(x_B-x)+F_f$</p>
+<p><b>Rotation about O</b> ($I_O=\tfrac12mR^2$): $\;\tfrac12mR^2\,\ddot\phi=-F_fR$</p>
+<p class="small">Friction at the bottom acting in +x turns the disk counterclockwise, hence the minus sign.</p>
+</details>
+<details class="step"><summary>Step 4 · Kinematics (constraints)</summary>
+<p>Rolling without slipping:</p>
+$$x=R\phi\qquad\Longrightarrow\qquad \ddot x=R\ddot\phi$$
+</details>
+<details class="step"><summary>Step 5 · Solve</summary>
+<p>From rotation, $F_f=-\tfrac12m\ddot x$. Substitute into translation:</p>
+$$\tfrac32m\ddot x+5kx=4k\,x_B=4kb\sin\omega t,\qquad \omega_n=\sqrt{\frac{10k}{3m}}$$
+<p><b>Particular solution:</b> try $x_p=X\sin\omega t$:</p>
+$$X=\frac{4kb}{5k-\tfrac32m\omega^2}$$
+<p><b>At ω = 15 rad/s</b> ($m=4$ kg, $k=800$ N/m, $b=0.02$ m): $5k-\tfrac32m\omega^2=4000-1350=2650$ N/m and $4kb=64$ N, so</p>
+$$X=\frac{64}{2650}=0.0242\ \text{m}=24.2\ \text{mm}$$
+<p>$X&gt;0$, so the response is <b>in phase</b> with the forcing ($\omega&lt;\omega_n=25.8$ rad/s).</p>
+</details>
+<details class="answer"><summary>Answer</summary>
+<p>(a) $\tfrac32m\ddot x+5kx=4kb\sin\omega t$ &nbsp; (b) $x_p=\dfrac{4kb}{5k-\tfrac32m\omega^2}\sin\omega t$</p>
+<p>(c) $X=24.2$ mm, <b>in phase</b> with the forcing (since $\omega&lt;\omega_n$).</p>
+</details>
+
+<div class="try"><h4>Explore</h4><ul><li>Raise ω above 25.8 rad/s. The stats switch to "180° out of phase": watch the disk move opposite to B.</li><li>Untick "start on the particular solution" to see the free vibration that rides on top when you start from rest.</li><li>Does the disk radius R affect anything? Why not?</li></ul></div>
+
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="example-5.html"><small>← Previous</small>Example 5</a><a class="next" href="example-7.html"><small>Next →</small>Example 7</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/examples.js"></script>
+</body>
+</html>

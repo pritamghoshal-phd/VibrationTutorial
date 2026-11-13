@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forced harmonic vibration · Linear Vibrations Lab</title>
+<meta name="description" content="Interactive notes on single-degree-of-freedom linear vibrations.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600;650&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="brand" href="lab.html"><svg class="logo" viewBox="0 0 16 28" aria-hidden="true"><line class="top" x1="2" y1="1" x2="14" y2="1"/><polyline class="coil" points="8,1 8,3 3,5 13,7 3,9 13,11 3,13 8,15 8,16"/><rect class="bob" x="2" y="16" width="12" height="9" rx="2"/></svg>Linear Vibrations <span>Lab</span></a></div></header>
+<nav class="toc" aria-label="Pages">
+  <div class="wrap">
+    <a href="lab.html">Home</a>
+    <a href="eom.html">1 · EOM</a>
+    <a href="free.html">2 · Free</a>
+    <a href="damped.html">3 · Damped</a>
+    <a href="forced.html" class="active">4 · Forced</a>
+    <a href="base.html">5 · Base excitation</a>
+    <a href="summary.html">6 · Summary</a>
+    <a href="examples.html">Examples</a>
+    <a href="badges.html">🏅 My badges</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="forced">
+<h2><span class="num">4</span>Forced harmonic vibration</h2>
+<p>Now drive the system with a harmonic force:</p>
+$$ m\ddot x + c\dot x + kx = F_0\cos\omega t $$
+<p>The solution is the sum of a <strong>homogeneous</strong> part (the free, decaying vibration from <a href="damped.html">Section 3</a>, called the <em>transient</em>) and a <strong>particular</strong> part that oscillates at the forcing frequency $\omega$ (the <em>steady state</em>). Assume $x_p = X\cos(\omega t-\phi)$, substitute, and match coefficients. With the frequency ratio $r=\omega/\omega_n$ and static deflection $\delta_{st}=F_0/k$:</p>
+$$ \frac{X}{\delta_{st}} = M(r,\zeta)=\frac{1}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}, \qquad \tan\phi = \frac{2\zeta r}{1-r^2} $$
+<details class="deriv"><summary>Deriving the particular solution (undetermined coefficients)</summary>
+<p>Write the forced equation in standard form, $\ddot x+2\zeta\omega_n\dot x+\omega_n^2x=(F_0/M)\cos\omega t$, and guess a response at the forcing frequency containing both a cosine and a sine: $x_p=A\cos\omega t+B\sin\omega t$. Substituting and collecting terms:</p>
+$$\cos\omega t:\quad(\omega_n^2-\omega^2)A+2\zeta\omega_n\omega\,B=\frac{F_0}{M},\qquad \sin\omega t:\quad-2\zeta\omega_n\omega\,A+(\omega_n^2-\omega^2)B=0.$$
+<p>These must hold for all $t$, so both coefficient equations must be satisfied. Solving the pair:</p>
+$$A=\frac{F_0}{M}\,\frac{\omega_n^2-\omega^2}{(\omega_n^2-\omega^2)^2+(2\zeta\omega_n\omega)^2},\qquad B=\frac{F_0}{M}\,\frac{2\zeta\omega_n\omega}{(\omega_n^2-\omega^2)^2+(2\zeta\omega_n\omega)^2}.$$
+<p>Writing $A\cos\omega t+B\sin\omega t=X\cos(\omega t-\phi)$ means $A=X\cos\phi$ and $B=X\sin\phi$, so $X=\sqrt{A^2+B^2}$ and $\tan\phi=B/A$. Dividing top and bottom by $\omega_n^4$ gives exactly the $M(r,\zeta)$ and $\tan\phi$ above. A sine forcing $F_0\sin\omega t$ works the same way and gives $x_p=X\sin(\omega t-\phi)$ with the same $X$ and $\phi$.</p>
+</details>
+<p>$M$ is the <strong>magnification factor</strong> and $\phi$ is how far the displacement <em>lags</em> the force. Three regimes:</p>
+<div class="card">
+<p style="margin-top:0"><strong>$r\ll 1$, stiffness-controlled.</strong> $M\approx 1$, $\phi\approx 0$. The mass follows the force quasi-statically: $x\approx F(t)/k$.</p>
+<p><strong>$r\approx 1$, resonance (damping-controlled).</strong> $\phi = 90^\circ$ and $M=\frac{1}{2\zeta}$. Only damping limits the amplitude. The true peak sits slightly below, at $r=\sqrt{1-2\zeta^2}$.</p>
+<p style="margin-bottom:0"><strong>$r\gg 1$, mass-controlled.</strong> $M\approx 1/r^2\to 0$, $\phi\to180^\circ$. The mass is too heavy to follow and moves opposite to the force.</p>
+</div>
+<h3>The undamped case: what a negative amplitude means</h3>
+<p>With $\zeta=0$ the sine term drops out ($B=0$) and the steady response is simply $x_p=A\cos\omega t$ with</p>
+$$A=\frac{F_0/K}{1-r^2}.$$
+<p>Below resonance $A$ is positive: the mass moves <strong>in phase</strong> with the force. Above resonance $A$ is negative: the mass moves <strong>opposite</strong> to the force (180° out of phase). At $r=1$ it is unbounded. Because only $|1-r^2|$ sets the size, two different frequencies give the same size of response, one in phase and one out of phase; they satisfy $r_1^2+r_2^2=2$. Damping smooths the sudden sign flip into the gradual phase change from 0° to 180° that you saw above.</p>
+<div class="demo concept" id="c-undamped">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Undamped forced response: the sign of A</div>
+  <div class="grid2"><canvas id="c-undamped-anim" class="anim"></canvas><div><canvas id="c-undamped-plot" class="plot short"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>A(r), signed</span><span><span class="sw" style="background:var(--c2)"></span>your r</span><span><span class="sw" style="background:var(--c4)"></span>mirror frequency: same |A|</span></div></div></div>
+  <div class="controls" id="c-undamped-ctl"></div>
+  <div class="bar" id="c-undamped-pre"><span class="lbl">Try:</span></div>
+  
+  <div class="bar" id="c-undamped-btn"></div>
+  <div class="stats" id="c-undamped-stats"></div>
+  <p class="small concept-note">Watch the force arrow and the mass: below resonance they move together; above it the mass goes left when the force pushes right.</p>
+</div>
+
+<p><strong>Why the phase changes.</strong> At every instant the applied force is balanced by three forces: the spring ($kx$, along $x$), the damper ($c\dot x$, a quarter cycle ahead of $x$) and inertia ($m\ddot x$, opposite to $x$). Drawn as rotating arrows, they must always add up to $F_0$:</p>
+<div class="demo concept" id="c-phasors">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Force balance at a glance</div>
+  <canvas id="c-phasors-anim" class="anim" style="height:300px"></canvas><p class="small concept-note" id="c-phasors-why"></p>
+  <div class="controls" id="c-phasors-ctl"></div>
+  <div class="bar" id="c-phasors-pre"><span class="lbl">Try:</span></div>
+  
+  <div class="bar" id="c-phasors-btn"></div>
+  <div class="stats" id="c-phasors-stats"></div>
+  
+</div>
+<p>With $\zeta=0$ exactly at resonance the steady state does not exist; the amplitude grows linearly forever: $x(t)=\frac{F_0}{2m\omega_n}t\sin\omega_n t$. Near (but not at) resonance with little damping you see <strong>beats</strong>: the transient and steady-state parts have nearly equal frequencies and alternately add and cancel.</p>
+
+<div class="demo" id="demo-forced">
+  <div class="demo-title"><span class="tag">Interactive</span>Harmonically forced oscillator (starts from rest)</div>
+  <canvas id="frc-anim" class="anim"></canvas>
+  <div class="controls" id="frc-ctl"></div>
+  <div class="bar" id="frc-pre"><span class="lbl">Presets:</span></div>
+  <div class="bar" id="frc-btn"></div>
+  <div class="bar">
+    <label class="check"><input type="checkbox" id="frc-ss" checked> Steady-state solution</label>
+    <label class="check"><input type="checkbox" id="frc-f" checked> Force $F(t)/k$</label>
+    <label class="check"><input type="checkbox" id="frc-tr"> Transient $x-x_p$</label>
+  </div>
+  <div class="stats" id="frc-stats"></div>
+  <div class="notes" id="frc-notes"></div>
+  <canvas id="frc-plot" class="plot"></canvas>
+  <div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>Total response $x(t)$</span><span><span class="sw" style="background:var(--c2)"></span>Steady state $x_p$</span><span><span class="sw" style="background:var(--c5)"></span>$F(t)/k$</span><span><span class="sw" style="background:var(--c3)"></span>Transient</span></div>
+  <div class="grid2" style="margin-top:1rem">
+    <div><canvas id="frc-mag" class="plot short"></canvas><p class="small" style="margin:.2rem 0 0">Magnification $M=X/\delta_{st}$ vs $r$. Grey curves: $\zeta$ = 0.05, 0.1, 0.25, 0.5, 1.</p></div>
+    <div><canvas id="frc-phs" class="plot short"></canvas><p class="small" style="margin:.2rem 0 0">Phase lag $\phi$ vs $r$. Every curve passes through 90° at $r=1$.</p></div>
+  </div>
+</div>
+<div class="try"><h4>Try this</h4><ul>
+  <li>Sweep $r$ slowly from 0 to 3 with $\zeta=0.1$. Watch the dot ride the frequency-response curves and the force-vs-displacement phase shift.</li>
+  <li>At $r=1$, compare the force and displacement traces: the displacement peaks a quarter cycle after the force.</li>
+  <li>Turn on <em>Transient</em>. How long until it dies out? How does that time depend on $\zeta$?</li>
+  <li>Try the <em>Beats</em> preset, then <em>Undamped resonance</em>. Why does the amplitude grow without bound?</li>
+</ul></div>
+<p><strong>Passing through resonance.</strong> A real machine does not jump straight to its running speed: it speeds up and passes through resonance on the way. Watch the response as the forcing frequency slowly rises:</p>
+<div class="demo concept" id="c-sweep">
+  <div class="demo-title"><span class="tag concept-tag">Concept</span>Sweeping through resonance</div>
+  <canvas id="c-sweep-anim" class="anim"></canvas><canvas id="c-sweep-plot" class="plot" style="height:260px;margin-top:.5rem"></canvas><div class="legendrow"><span><span class="sw" style="background:var(--c1)"></span>response while sweeping</span><span><span class="sw" style="background:var(--c2)"></span>steady-state amplitude ±M(r)</span></div>
+  <div class="controls" id="c-sweep-ctl"></div>
+  <div class="bar" id="c-sweep-pre"><span class="lbl">Try:</span></div>
+  
+  <div class="bar" id="c-sweep-btn"></div>
+  <div class="stats" id="c-sweep-stats"></div>
+  <p class="small concept-note">The response needs about 1/(ζωₙ) seconds to build up. If the sweep spends much longer than that crossing the resonance band (a slow sweep), the response follows the steady-state curve and peaks at r ≈ 1. If it rushes through (a fast sweep), the peak is lower, arrives late (above r = 1), and the mass then rings at its natural frequency. That is why machines are run up quickly through resonance.</p>
+</div>
+<div class="wild"><span class="wi" aria-hidden="true">🌉</span><div><b class="wh">Vibrations in the wild</b><p>On its opening day in June 2000, London’s Millennium Bridge began swaying sideways. Its lateral natural frequency was close to the rate at which people step side to side, so walkers unconsciously fell into step with the sway and pushed it at resonance. It closed after two days and reopened in 2002 with added dampers.</p></div></div>
+</section>
+<nav class="pager" aria-label="Page navigation"><a class="prev" href="damped.html"><small>← Previous</small>Damped free vibration</a><a class="next" href="base.html"><small>Next →</small>Base excitation and isolation</a></nav>
+</main>
+<footer><div class="wrap"><p>Created by Pritam Ghoshal, Purdue University</p></div></footer>
+<script src="assets/common.js"></script>
+<script src="assets/demos.js"></script>
+<script src="assets/concepts.js"></script>
+<script src="assets/concepts2.js"></script>
+</body>
+</html>
